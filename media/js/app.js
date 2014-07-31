@@ -1,4 +1,5 @@
-angular.module('facebookStats', [
-    'base',
-    'facebook'
-])
+angular
+    .module('facebookStats', [
+        'base',
+        'facebook'
+    ]);
