@@ -1,0 +1,15 @@
+$z-index: (
+    header-dropdown: 9000,
+    header: 8000,
+    content: 7000
+);
+$header: (
+    height: 40px,
+    padding: 5px,
+    background-color: #222833,
+    text-color: #ACACAC,
+    hover-background-color: #4C4C52
+);
+$base: (
+    link-color: #0E628F
+)

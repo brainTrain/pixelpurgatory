@@ -1,0 +1,14 @@
+@mixin breakpoint($point) {
+    /*  Lovingly lifted from the following:
+        http://css-tricks.com/media-queries-sass-3-2-and-codekit/
+    */
+    @if $point == large {
+        @media (max-width: 1600px) { @content; }
+    }
+    @else if $point == medium {
+        @media (max-width: 1250px) { @content; }
+    }
+    @else if $point == small {
+        @media (max-width: 650px) { @content; }
+    }
+}
