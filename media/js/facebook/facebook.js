@@ -5,10 +5,20 @@ angular.module('facebook', [])
             $facebook
                 .login()
                 .then(function() {
-                    refresh();  
+                    logMeIn();  
                 });
         };
-        function refresh() {
+        $scope.getMyShit =  function() {
+            $facebook
+                .api('/v2.0/me/posts/?until=now')
+                .then(function(response) {
+                        $scope.uglyFeed = response;
+                    },
+                    function(error) {
+                        $scope.uglyFeed = 'damn, errorz :\'(';
+                    });
+        };
+        function logMeIn() {
             $facebook
                 .api('/me')
                 .then(function(response) {
@@ -19,5 +29,5 @@ angular.module('facebook', [])
                         $scope.yo = 'gotta log in dawg';
                     });
         }
-        refresh();
+        logMeIn();
     }]);

@@ -5,7 +5,9 @@ angular
         'facebook'
     ])
     .config(function($facebookProvider){
-        $facebookProvider.setAppId('1446543078942368');
+        $facebookProvider
+            .setAppId('1446543078942368')
+            .setPermissions('user_status,user_photos');
     })
     .run(function($rootScope) {
         (function() {
