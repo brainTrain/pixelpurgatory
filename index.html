@@ -22,6 +22,7 @@
         <!-- angular modules -->
         <script type="text/javascript" src="/media/js/base/base.js"></script>
         <script type="text/javascript" src="/media/js/facebook/facebook.js"></script>
+        <script type="text/javascript" src="/media/js/lib/angular/ngFacebook-master/ngFacebook.js"></script>
 
         <!-- jQuery codez for your broz -->
         <script type="text/javascript" src="/media/js/brainnewstuff.js"></script>
@@ -29,31 +30,10 @@
 
     </head>
     <body ng-controller="FBController">
-        <script>
-          window.fbAsyncInit = function() {
-            FB.init({
-              appId      : '1446543078942368',
-              xfbml      : true,
-              version    : 'v2.0'
-            });
-          };
+        <div id="fb-root"></div>
+        <h2>Abandon hope all ye who enter here...</h2>
+        <h3>{{ yo }}</h3>
 
-          (function(d, s, id){
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/sdk.js";
-             fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
-        </script>
-
-        <h3>Abandon hope all ye who enter here...</h3>
-        <div
-            class="fb-like"
-            data-send="true"
-            data-width="450"
-            data-show-faces="true">
-        </div>
-        <div class="cursor-pointer" ng-click="FB.login()">let me in!</div>
+        <div class="cursor-pointer" ng-click="FBLogin()" ng-hide="isLoggedIn">let me in!</div>
     </body>
 </html>
