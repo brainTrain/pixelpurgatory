@@ -1,5 +1,5 @@
-angular.module('facebook', [])
-    .controller('FBController', ['$facebook', '$scope', function($facebook, $scope){
+angular.module('facebook.controllers', [])
+    .controller('facebookController', ['$facebook', '$scope', 'facebookAPIService', function($facebook, $scope, facebookAPIService) {
         $scope.isLoggedIn = false;
         $scope.FBLogin =  function() {
             $facebook
@@ -18,14 +18,14 @@ angular.module('facebook', [])
                 });
         };
         $scope.getMyShit =  function() {
-            $facebook
-                .api('/v2.0/me/posts')
-                .then(function(response) {
-                        $scope.uglyFeed = response;
-                    },
-                    function(error) {
-                        $scope.uglyFeed = 'damn, errorz :\'(';
-                    });
+            facebookAPIService
+                    .getPostedStatuses()
+                    .then(function(response) {
+                            $scope.uglyFeed = response;
+                        },
+                        function(error) {
+                            $scope.uglyFeed = 'damn, errorz :\'(';
+                        });
         };
         function logMeIn() {
             $facebook

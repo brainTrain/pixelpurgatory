@@ -55,6 +55,7 @@ angular.module('ngFacebook', [])
           angular.extend({ appId: $facebook.config('appId') }, $facebook.config("customInit"))
         );
         $rootScope.$broadcast("fb.load", $window.FB);
+        window.$facebook = $facebook;
       };
 
       $rootScope.$on("fb.load", function(e, FB) {

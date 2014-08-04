@@ -2,7 +2,8 @@ angular
     .module('facebookStats', [
         'base',
         'ngFacebook',
-        'facebook'
+        'facebook.controllers',
+        'facebook.services'
     ])
     .config(function($facebookProvider){
         $facebookProvider
