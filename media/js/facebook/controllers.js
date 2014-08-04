@@ -8,9 +8,18 @@ angular.module('facebook', [])
                     logMeIn();  
                 });
         };
+        $scope.FBLogout =  function() {
+            $facebook
+                .logout()
+                .then(function(){
+                    $scope.yo = 'gotta log in dawg';
+                    $scope.uglyFeed = '';
+                    $scope.isLoggedIn = false;
+                });
+        };
         $scope.getMyShit =  function() {
             $facebook
-                .api('/v2.0/me/posts/?until=now')
+                .api('/v2.0/me/posts')
                 .then(function(response) {
                         $scope.uglyFeed = response;
                     },

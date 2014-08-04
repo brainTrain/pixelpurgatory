@@ -6,8 +6,11 @@ angular
     ])
     .config(function($facebookProvider){
         $facebookProvider
-            .setAppId('1446543078942368')
-            .setPermissions('user_status,user_photos');
+            .setAppId('1446543078942368') // prod id
+            .setPermissions('read_stream,user_photos')
+            .setCustomInit({
+                version: 'v2.0'
+            });
     })
     .run(function($rootScope) {
         (function() {

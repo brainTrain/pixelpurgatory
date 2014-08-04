@@ -15,27 +15,30 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
         <script type="text/javascript" src="/media/js/lib/underscore-min.js"></script>
 
+        <!-- angular libs -->
+        <script type="text/javascript" src="/media/js/lib/angular/ngFacebook-master/ngFacebook.js"></script>
+
         <!-- mine -->
         <!-- angular files -->
         <script type="text/javascript" src="/media/js/app.js"></script>
 
-        <!-- angular modules -->
+        <!-- my angular modules -->
         <script type="text/javascript" src="/media/js/base/base.js"></script>
-        <script type="text/javascript" src="/media/js/facebook/facebook.js"></script>
-        <script type="text/javascript" src="/media/js/lib/angular/ngFacebook-master/ngFacebook.js"></script>
+        <script type="text/javascript" src="/media/js/facebook/controllers.js"></script>
 
         <!-- jQuery codez for your broz -->
         <script type="text/javascript" src="/media/js/brainnewstuff.js"></script>
-
 
     </head>
     <body ng-controller="FBController">
         <div id="fb-root"></div>
         <h2>Abandon hope all ye who enter here...</h2>
         <h3>{{ yo }}</h3>
-        <h3>{{ uglyFeed }}</h3>
 
         <button class="cursor-pointer" ng-click="FBLogin()" ng-hide="isLoggedIn">let me in!</button>
+        <button class="cursor-pointer" ng-click="FBLogout()" ng-show="isLoggedIn">let me out!</button>
         <button class="cursor-pointer" ng-click="getMyShit()" ng-show="isLoggedIn">get my shit!</button>
+
+        <h3>{{ uglyFeed }}</h3>
     </body>
 </html>
