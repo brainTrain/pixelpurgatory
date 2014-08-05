@@ -1,25 +1,25 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', function($facebook, facebookAPIService, facebookAPICache) {
+    .controller('facebookController', function($facebook, facebookDataFactory, facebookDataCache, facebookAuthFactory) {
         var vm = this;
-        vm.isLoggedIn = false;
+        vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
         vm.FBLogin =  function() {
-            $facebook
+            facebookAuthFactory
                 .login()
                 .then(function() {
-                    logMeIn();  
+                    vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
+                    vm.facebookData = facebookDataCache.get('facebookData');
                 });
         };
         vm.FBLogout =  function() {
             $facebook
                 .logout()
                 .then(function(){
-                    vm.yo = 'gotta log in dawg';
-                    vm.uglyFeed = '';
-                    vm.isLoggedIn = false;
                 })
                 .finally(function(){
                     // clear out cache when the user logs out
-                    facebookAPICache.put('facebookAPIData', {})
+                    vm.isLoggedIn = false;
+                    vm.facebookData = facebookDataCache.get('facebookData');
+                    //facebookDataCache.put('facebookData', {})
                     // clear out statuses
                     vm.statusesFinish = '';
                     vm.photosFinish = '';
@@ -33,7 +33,7 @@ angular.module('facebook.controllers', [])
             vm.videosFinish = '';
             vm.linksFinish = '';
 
-            var facebookData = facebookAPICache.get('facebookAPIData'),
+            var facebookData = facebookDataCache.get('facebookData'),
                 requestComplete = {
                     "gotStatuses" : false,
                     "gotPhotos" : false,
@@ -45,7 +45,7 @@ angular.module('facebook.controllers', [])
             // and make sure that sucker's an int so I don't have to do conversions elsewhere
             facebookData.data.until = parseInt(new Date().getTime()/1000, 10);
 
-            facebookAPIService
+            facebookDataFactory
                 .getPostedStatuses()
                 .then(function(success) {
                         facebookData.data.statuses = success.data;
@@ -58,7 +58,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotStatuses = true;    
                     updateCacheData(facebookData, requestComplete);
                 });
-            facebookAPIService
+            facebookDataFactory
                 .getPostedPhotos()
                 .then(function(success) {
                         facebookData.data.photos = success.data;
@@ -71,7 +71,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotPhotos = true;
                     updateCacheData(facebookData, requestComplete);
                 });
-            facebookAPIService
+            facebookDataFactory
                 .getPostedVideos()
                 .then(function(success) {
                         facebookData.data.videos = success.data;
@@ -84,7 +84,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotVideos = true;
                     updateCacheData(facebookData, requestComplete);
                 });
-            facebookAPIService
+            facebookDataFactory
                 .getPostedLinks()
                 .then(function(success) {
                         facebookData.data.links = success.data;
@@ -98,43 +98,14 @@ angular.module('facebook.controllers', [])
                     updateCacheData(facebookData, requestComplete);
                 });
         };
-        function logMeIn() {
-            $facebook
-                .api('/me')
-                .then(function(response) {
-                        // set new cache on login
-                        var cachedResponse = {
-                            "user": {
-                                "id": response.id,
-                                "name": response.name,
-                                "first_name": response.first_name,
-                                "last_name": response.last_name
-                            },
-                            "data": {
-                                "until": "",
-                                "links": [],
-                                "statuses": [],
-                                "photos": []
-                            }
-                        };
-
-                        vm.yo = 'whatup ' + response.name + '?';
-                        vm.isLoggedIn = true;
-
-                        facebookAPICache.put('facebookAPIData', cachedResponse);
-                    },
-                    function(error) {
-                        vm.yo = 'gotta log in dawg';
-                    });
-        };
         function updateCacheData(facebookData, requestComplete) {
             var allComplete = requestComplete.gotStatuses === true && 
                               requestComplete.gotPhotos === true && 
                               requestComplete.gotVideos === true && 
                               requestComplete.gotLinks === true;
             if(allComplete) {
-                facebookAPICache.put('facebookAPIData', facebookData);
-                console.log(facebookAPICache.get('facebookAPIData'));
+                facebookDataCache.put('facebookData', facebookData);
+                console.log(facebookDataCache.get('facebookData'));
             }
         };
     });

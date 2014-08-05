@@ -33,11 +33,14 @@
     <body ng-controller="facebookController as fb">
         <div id="fb-root"></div>
         <h2>Abandon (design)hope all ye who enter here...</h2>
-        <h3 ng-init="fb.yo='gotta log in dawg'">{{ fb.yo }}</h3>
+
+        <h3 class="cursor-pointer" ng-hide="fb.isLoggedIn">gotta log in dawg</h3>
+        <h3 class="cursor-pointer" ng-show="fb.isLoggedIn">whatup {{ fb.facebookData.user.name }}?</h3>
 
         <button class="cursor-pointer" ng-click="fb.FBLogin()" ng-hide="fb.isLoggedIn">let me in!</button>
         <button class="cursor-pointer" ng-click="fb.FBLogout()" ng-show="fb.isLoggedIn">let me out!</button>
         <button class="cursor-pointer" ng-click="fb.getIt()" ng-show="fb.isLoggedIn">get it!</button>
+
         <h3>{{ fb.statusesFinish }}</h3>
         <h3>{{ fb.photosFinish }}</h3>
         <h3>{{ fb.videosFinish }}</h3>
