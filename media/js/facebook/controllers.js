@@ -19,6 +19,11 @@ angular.module('facebook.controllers', [])
                 .finally(function(){
                     // clear out cache when the user logs out
                     facebookAPICache.put('facebookAPIData', {})
+                    // clear out statuses
+                    $scope.statusesFinish = '';
+                    $scope.photosFinish = '';
+                    $scope.videosFinish = '';
+                    $scope.linksFinish = '';
                 });
         };
         $scope.getMyShit =  function() {
@@ -38,8 +43,10 @@ angular.module('facebook.controllers', [])
                 .getPostedStatuses()
                 .then(function(success) {
                         facebookData.data.statuses = success.data;
+                        $scope.statusesFinish = 'successfully got statuses';
                     }, function(error) {
                         facebookData.data.statuses = [];
+                        $scope.statusesFinish = 'error getting statuses';
                 })
                 .finally(function() {
                     requestComplete.gotStatuses = true;    
@@ -49,8 +56,10 @@ angular.module('facebook.controllers', [])
                 .getPostedPhotos()
                 .then(function(success) {
                         facebookData.data.photos = success.data;
+                        $scope.photosFinish = 'successfully got photos';
                     }, function(error) {
                         facebookData.data.photos = [];
+                        $scope.photosFinish = 'error getting photos';
                 })
                 .finally(function() {
                     requestComplete.gotPhotos = true;
@@ -60,8 +69,10 @@ angular.module('facebook.controllers', [])
                 .getPostedVideos()
                 .then(function(success) {
                         facebookData.data.videos = success.data;
+                        $scope.videosFinish = 'successfully got videos';
                     }, function(error) {
                         facebookData.data.videos = [];
+                        $scope.videosFinish = 'error getting videos';
                 })
                 .finally(function() {
                     requestComplete.gotVideos = true;
@@ -71,8 +82,10 @@ angular.module('facebook.controllers', [])
                 .getPostedLinks()
                 .then(function(success) {
                         facebookData.data.links = success.data;
+                        $scope.linksFinish = 'successfully got links';
                     }, function(error) {
                         facebookData.links = [];
+                        $scope.linksFinish = 'failed getting links';
                 })
                 .finally(function() {
                     requestComplete.gotLinks = true;
