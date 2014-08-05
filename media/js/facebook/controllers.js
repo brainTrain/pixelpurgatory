@@ -1,32 +1,33 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', ['$facebook', '$scope', 'facebookAPIService', 'facebookAPICache', function($facebook, $scope, facebookAPIService, facebookAPICache) {
-        $scope.isLoggedIn = false;
-        $scope.FBLogin =  function() {
+    .controller('facebookController', function($facebook, facebookAPIService, facebookAPICache) {
+        var vm = this;
+        vm.isLoggedIn = false;
+        vm.FBLogin =  function() {
             $facebook
                 .login()
                 .then(function() {
                     logMeIn();  
                 });
         };
-        $scope.FBLogout =  function() {
+        vm.FBLogout =  function() {
             $facebook
                 .logout()
                 .then(function(){
-                    $scope.yo = 'gotta log in dawg';
-                    $scope.uglyFeed = '';
-                    $scope.isLoggedIn = false;
+                    vm.yo = 'gotta log in dawg';
+                    vm.uglyFeed = '';
+                    vm.isLoggedIn = false;
                 })
                 .finally(function(){
                     // clear out cache when the user logs out
                     facebookAPICache.put('facebookAPIData', {})
                     // clear out statuses
-                    $scope.statusesFinish = '';
-                    $scope.photosFinish = '';
-                    $scope.videosFinish = '';
-                    $scope.linksFinish = '';
+                    vm.statusesFinish = '';
+                    vm.photosFinish = '';
+                    vm.videosFinish = '';
+                    vm.linksFinish = '';
                 });
         };
-        $scope.getMyShit =  function() {
+        vm.getIt =  function() {
             var facebookData = facebookAPICache.get('facebookAPIData'),
                 requestComplete = {
                     "gotStatuses" : false,
@@ -43,10 +44,10 @@ angular.module('facebook.controllers', [])
                 .getPostedStatuses()
                 .then(function(success) {
                         facebookData.data.statuses = success.data;
-                        $scope.statusesFinish = 'successfully got statuses';
+                        vm.statusesFinish = 'successfully got statuses';
                     }, function(error) {
                         facebookData.data.statuses = [];
-                        $scope.statusesFinish = 'error getting statuses';
+                        vm.statusesFinish = 'error getting statuses';
                 })
                 .finally(function() {
                     requestComplete.gotStatuses = true;    
@@ -56,10 +57,10 @@ angular.module('facebook.controllers', [])
                 .getPostedPhotos()
                 .then(function(success) {
                         facebookData.data.photos = success.data;
-                        $scope.photosFinish = 'successfully got photos';
+                        vm.photosFinish = 'successfully got photos';
                     }, function(error) {
                         facebookData.data.photos = [];
-                        $scope.photosFinish = 'error getting photos';
+                        vm.photosFinish = 'error getting photos';
                 })
                 .finally(function() {
                     requestComplete.gotPhotos = true;
@@ -69,10 +70,10 @@ angular.module('facebook.controllers', [])
                 .getPostedVideos()
                 .then(function(success) {
                         facebookData.data.videos = success.data;
-                        $scope.videosFinish = 'successfully got videos';
+                        vm.videosFinish = 'successfully got videos';
                     }, function(error) {
                         facebookData.data.videos = [];
-                        $scope.videosFinish = 'error getting videos';
+                        vm.videosFinish = 'error getting videos';
                 })
                 .finally(function() {
                     requestComplete.gotVideos = true;
@@ -82,10 +83,10 @@ angular.module('facebook.controllers', [])
                 .getPostedLinks()
                 .then(function(success) {
                         facebookData.data.links = success.data;
-                        $scope.linksFinish = 'successfully got links';
+                        vm.linksFinish = 'successfully got links';
                     }, function(error) {
                         facebookData.links = [];
-                        $scope.linksFinish = 'failed getting links';
+                        vm.linksFinish = 'failed getting links';
                 })
                 .finally(function() {
                     requestComplete.gotLinks = true;
@@ -112,21 +113,25 @@ angular.module('facebook.controllers', [])
                             }
                         };
 
-                        $scope.yo = 'whatup ' + response.name + '?';
-                        $scope.isLoggedIn = true;
+                        vm.yo = 'whatup ' + response.name + '?';
+                        vm.isLoggedIn = true;
 
-                        facebookAPICache.put('facebookAPIData', cachedResponse)
+                        facebookAPICache.put('facebookAPIData', cachedResponse);
                     },
                     function(error) {
-                        $scope.yo = 'gotta log in dawg';
+                        vm.yo = 'gotta log in dawg';
                     });
         };
         function updateCacheData(facebookData, requestComplete) {
-            var allComplete = requestComplete.gotStatuses === true && requestComplete.gotPhotos === true && requestComplete.gotVideos === true && requestComplete.gotLinks === true ;
+            var allComplete = requestComplete.gotStatuses === true && 
+                              requestComplete.gotPhotos === true && 
+                              requestComplete.gotVideos === true && 
+                              requestComplete.gotLinks === true;
             if(allComplete) {
                 facebookAPICache.put('facebookAPIData', facebookData);
+                console.log(facebookAPICache.get('facebookAPIData'));
             }
         };
 
         logMeIn();
-    }]);
+    });

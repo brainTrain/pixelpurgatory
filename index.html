@@ -11,7 +11,9 @@
 
         <!-- js -->
         <!-- theirs -->
+        <!--
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        -->
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
         <script type="text/javascript" src="/media/js/lib/underscore-min.js"></script>
 
@@ -28,23 +30,22 @@
         <script type="text/javascript" src="/media/js/facebook/services.js"></script>
 
         <!-- jQuery codez for your broz -->
-        <script type="text/javascript" src="/media/js/brainnewstuff.js"></script>
 
     </head>
-    <body ng-controller="facebookController">
+    <body ng-controller="facebookController as fb">
         <div id="fb-root"></div>
-        <h2>Abandon hope all ye who enter here...</h2>
-        <h3>{{ yo }}</h3>
+        <h2>Abandon (design)hope all ye who enter here...</h2>
+        <h3 ng-init="fb.yo='gotta log in dawg'">{{ fb.yo }}</h3>
 
-        <button class="cursor-pointer" ng-click="FBLogin()" ng-hide="isLoggedIn">let me in!</button>
-        <button class="cursor-pointer" ng-click="FBLogout()" ng-show="isLoggedIn">let me out!</button>
-        <button class="cursor-pointer" ng-click="getMyShit()" ng-show="isLoggedIn">get my shit!</button>
-        <h3>{{ statusesFinish }}</h3>
-        <h3>{{ photosFinish }}</h3>
-        <h3>{{ videosFinish }}</h3>
-        <h3>{{ linksFinish }}</h3>
+        <button class="cursor-pointer" ng-click="fb.FBLogin()" ng-hide="fb.isLoggedIn">let me in!</button>
+        <button class="cursor-pointer" ng-click="fb.FBLogout()" ng-show="fb.isLoggedIn">let me out!</button>
+        <button class="cursor-pointer" ng-click="fb.getIt()" ng-show="fb.isLoggedIn">get it!</button>
+        <h3>{{ fb.statusesFinish }}</h3>
+        <h3>{{ fb.photosFinish }}</h3>
+        <h3>{{ fb.videosFinish }}</h3>
+        <h3>{{ fb.linksFinish }}</h3>
         <!--
-        <h3>{{ uglyFeed }}</h3>
+        <h3>{{ fb.uglyFeed }}</h3>
         -->
     </body>
 </html>
