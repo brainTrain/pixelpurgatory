@@ -28,6 +28,11 @@ angular.module('facebook.controllers', [])
                 });
         };
         vm.getIt =  function() {
+            vm.statusesFinish = '';
+            vm.photosFinish = '';
+            vm.videosFinish = '';
+            vm.linksFinish = '';
+
             var facebookData = facebookAPICache.get('facebookAPIData'),
                 requestComplete = {
                     "gotStatuses" : false,
@@ -132,6 +137,4 @@ angular.module('facebook.controllers', [])
                 console.log(facebookAPICache.get('facebookAPIData'));
             }
         };
-
-        logMeIn();
     });
