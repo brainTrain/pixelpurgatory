@@ -1,5 +1,5 @@
 angular.module('facebook.services', [])
-    .factory('facebookDataFactory', function($facebook, facebookPostCache){
+    .factory('facebookDataFactory', function($facebook, facebookPostCache, facebookGraphCache){
         var facebookAPI = {},
             facebookPromise;
 
@@ -42,11 +42,161 @@ angular.module('facebook.services', [])
                 photoLikes = _getLikes('photos'),
                 linkLikes = _getLikes('links'),
                 videoLikes = _getLikes('videos');
-            
+                userLikesHash = _bucketLikesByUser(statusLikes, photoLikes, linkLikes, videoLikes),
+                userLikesArray = [];
+
+            _.each(userLikesHash, function(value, key) {
+                userLikesArray.push(value);
+            });
+
+            return userLikesArray;
+        };
+
+        function _bucketLikesByUser(statusLikes, photoLikes, linkLikes, videoLikes) {
+            var userHash = {},
+                likeCount;
+            angular.forEach(statusLikes.likes, function(value, key) {
+                if(!userHash[value.id]) {
+                    userHash[value.id] = {
+                        id: value.id,
+                        name: value.name,
+                        likes: {
+                            'statuses': {
+                                type: 'statuses',
+                                count: 1
+                            },
+                            'photos': {
+                                type: 'photos',
+                                count: 0
+                            },
+                            'videos': {
+                                type: 'videos',
+                                count: 0
+                            },
+                            'links': {
+                                type: 'links',
+                                count: 0
+                            }
+                        }
+                    }
+                } else {
+                    likeCount = userHash[value.id].likes['statuses'].count;
+                    userHash[value.id].likes['statuses'].count = likeCount + 1;
+                }
+            });
+
+            angular.forEach(linkLikes.likes, function(value, key) {
+                if(!userHash[value.id]) {
+                    userHash[value.id] = {
+                        id: value.id,
+                        name: value.name,
+                        likes: {
+                            'statuses': {
+                                type: 'statuses',
+                                count: 0
+                            },
+                            'photos': {
+                                type: 'photos',
+                                count: 0
+                            },
+                            'videos': {
+                                type: 'videos',
+                                count: 0
+                            },
+                            'links': {
+                                type: 'links',
+                                count: 1
+                            }
+                        }
+                    }
+                } else {
+                    likeCount = userHash[value.id].likes['links'].count;
+                    userHash[value.id].likes['links'].count = likeCount + 1;
+                }
+            });
+
+            angular.forEach(photoLikes.likes, function(value, key) {
+                if(!userHash[value.id]) {
+                    userHash[value.id] = {
+                        id: value.id,
+                        name: value.name,
+                        likes: {
+                            'statuses': {
+                                type: 'statuses',
+                                count: 0
+                            },
+                            'photos': {
+                                type: 'photos',
+                                count: 1
+                            },
+                            'videos': {
+                                type: 'videos',
+                                count: 0
+                            },
+                            'links': {
+                                type: 'links',
+                                count: 0
+                            }
+                        }
+                    }
+                } else {
+                    likeCount = userHash[value.id].likes['photos'].count;
+                    userHash[value.id].likes['photos'].count = likeCount + 1;
+                }
+            });
+
+            angular.forEach(videoLikes.likes, function(value, key) {
+                if(!userHash[value.id]) {
+                    userHash[value.id] = {
+                        id: value.id,
+                        name: value.name,
+                        likes: {
+                            'statuses': {
+                                type: 'statuses',
+                                count: 0
+                            },
+                            'photos': {
+                                type: 'photos',
+                                count: 0
+                            },
+                            'videos': {
+                                type: 'videos',
+                                count: 1
+                            },
+                            'links': {
+                                type: 'links',
+                                count: 0
+                            }
+                        }
+                    }
+                } else {
+                    likeCount = userHash[value.id].likes['videos'].count;
+                    userHash[value.id].likes['videos'].count = likeCount + 1;
+                }
+            });
+
+            return userHash;
         };
         function _getLikes(postType) {
-            console.log('postType');
-            console.log(postType);
+            var rawPostData = facebookPostCache.get('facebookPostData'),
+                postArray = rawPostData[postType],
+                likeArray = [],
+                likeObject = {};
+
+            angular.forEach(postArray, function(value, key) {
+                if(value.likes && value.likes.data) {
+                    // add the post id so I can bind links to graphs
+                    angular.forEach(value.likes.data, function(value, key) {
+                        value.postId = value.id;
+                        likeArray.push(value);
+                    });
+                }
+            });
+
+            likeObject.likes = likeArray;
+            likeObject.type = postType;
+
+            return likeObject;
         };
 
         return facebookAPI;

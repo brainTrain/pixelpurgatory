@@ -45,6 +45,17 @@
         <h3>{{ fb.photosFinish }}</h3>
         <h3>{{ fb.videosFinish }}</h3>
         <h3>{{ fb.linksFinish }}</h3>
+
+        <br/>
+        <div ng-repeat="graph in fb.graphArray">
+            <h3>{{ graph.name }}:  {{ graph.likes.statuses.count + graph.likes.links.count + graph.likes.photos.count + graph.likes.videos.count}}</h3>
+            <h4>statuses: {{ graph.likes.statuses.count }}</h4>
+            <h4>links: {{ graph.likes.links.count }}</h4>
+            <h4>photos: {{ graph.likes.photos.count }}</h4>
+            <h4>videos: {{ graph.likes.videos.count }}</h4>
+            <br/>
+            <br/>
+        </div>
         <!--
         <h3>{{ fb.uglyFeed }}</h3>
         -->

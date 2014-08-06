@@ -1,5 +1,5 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', function($facebook, facebookDataFactory, facebookUserCache, facebookPostCache, facebookAuthFactory) {
+    .controller('facebookController', function($facebook, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory) {
         var vm = this;
         vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
         vm.FBLogin =  function() {
@@ -57,7 +57,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotStatuses = true;    
                     isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                     if(isComplete) {
-                        facebookDataFactory.convertGraphData();
+                        _getGraphy();
                     }
                 });
             facebookDataFactory
@@ -73,7 +73,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotPhotos = true;
                     isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                     if(isComplete) {
-                        facebookDataFactory.convertGraphData();
+                        _getGraphy();
                     }
                 });
             facebookDataFactory
@@ -89,7 +89,7 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotVideos = true;
                     isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                     if(isComplete) {
-                        facebookDataFactory.convertGraphData();
+                        _getGraphy();
                     }
                 });
             facebookDataFactory
@@ -105,16 +105,23 @@ angular.module('facebook.controllers', [])
                     requestComplete.gotLinks = true;
                     isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                     if(isComplete) {
-                        facebookDataFactory.convertGraphData();
+                        _getGraphy();
                     }
                 });
         };
+        function _getGraphy() {
+            var graphArray = facebookDataFactory.convertGraphData();
+            facebookGraphCache.put('facebookGraphData', graphArray);
 
+            vm.graphArray = graphArray;
+        };
         function clearDownloadStatus() {
             vm.statusesFinish = '';
             vm.photosFinish = '';
             vm.videosFinish = '';
             vm.linksFinish = '';
+
+            vm.graphArray = [];
         };
 
     });
