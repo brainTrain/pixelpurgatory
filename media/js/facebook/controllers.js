@@ -8,9 +8,11 @@ angular.module('facebook.controllers', [])
                 .then(function() {
                     facebookAuthFactory
                         .getCredentials()
-                        .finally(function() {
+                        .then(function() {
                             vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
                             vm.facebookUserData = facebookUserCache.get('facebookUserData');
+                        }, function() {
+                            // pass through errorz
                         });
                 });
         };
@@ -21,27 +23,22 @@ angular.module('facebook.controllers', [])
                     vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
                     vm.facebookUserData = facebookUserCache.get('facebookUserData');
                     // clear out statuses
-                    vm.statusesFinish = '';
-                    vm.photosFinish = '';
-                    vm.videosFinish = '';
-                    vm.linksFinish = '';
+                    clearDownloadStatus();
                 }, function() {
                     // pass through errorz
                 });
         };
-        vm.getAllPosts =  function() {
-            vm.statusesFinish = '';
-            vm.photosFinish = '';
-            vm.videosFinish = '';
-            vm.linksFinish = '';
 
+        vm.getAllPosts =  function() {
+            clearDownloadStatus();
             var facebookPostData = facebookPostCache.get('facebookPostData') || {},
                 requestComplete = {
                     "gotStatuses" : false,
                     "gotPhotos" : false,
                     "gotVideos" : false,
                     "gotLinks" : false
-                };
+                },
+                isComplete = false;
 
             // update the until value so we know when these requests were made
             // and make sure that sucker's an int so I don't have to do conversions elsewhere
@@ -58,7 +55,10 @@ angular.module('facebook.controllers', [])
                 })
                 .finally(function() {
                     requestComplete.gotStatuses = true;    
-                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    if(isComplete) {
+                        facebookDataFactory.convertGraphData();
+                    }
                 });
             facebookDataFactory
                 .getPostedPhotos()
@@ -71,7 +71,10 @@ angular.module('facebook.controllers', [])
                 })
                 .finally(function() {
                     requestComplete.gotPhotos = true;
-                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    if(isComplete) {
+                        facebookDataFactory.convertGraphData();
+                    }
                 });
             facebookDataFactory
                 .getPostedVideos()
@@ -84,7 +87,10 @@ angular.module('facebook.controllers', [])
                 })
                 .finally(function() {
                     requestComplete.gotVideos = true;
-                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    if(isComplete) {
+                        facebookDataFactory.convertGraphData();
+                    }
                 });
             facebookDataFactory
                 .getPostedLinks()
@@ -97,8 +103,18 @@ angular.module('facebook.controllers', [])
                 })
                 .finally(function() {
                     requestComplete.gotLinks = true;
-                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    isComplete = facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
+                    if(isComplete) {
+                        facebookDataFactory.convertGraphData();
+                    }
                 });
+        };
+
+        function clearDownloadStatus() {
+            vm.statusesFinish = '';
+            vm.photosFinish = '';
+            vm.videosFinish = '';
+            vm.linksFinish = '';
         };
 
     });

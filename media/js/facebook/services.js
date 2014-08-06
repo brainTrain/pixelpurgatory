@@ -8,6 +8,11 @@ angular.module('facebook.services', [])
             return facebookPromise;
         }; 
 
+        facebookAPI.getPostedLinks = function() {
+            facebookPromise = $facebook.api('/v2.0/me/links?limit=100');
+            return facebookPromise;
+        }; 
+        
         facebookAPI.getPostedPhotos = function() {
             facebookPromise = $facebook.api('/v2.0/me/photos/uploaded?limit=100');
             return facebookPromise;
@@ -18,11 +23,6 @@ angular.module('facebook.services', [])
             return facebookPromise;
         }; 
 
-        facebookAPI.getPostedLinks = function() {
-            facebookPromise = $facebook.api('/v2.0/me/links?limit=100');
-            return facebookPromise;
-        }; 
-
         facebookAPI.updateCacheData = function(facebookPostData, requestComplete) {
             var allComplete = requestComplete.gotStatuses === true && 
                               requestComplete.gotPhotos === true && 
@@ -30,11 +30,23 @@ angular.module('facebook.services', [])
                               requestComplete.gotLinks === true;
             if(allComplete) {
                 facebookPostCache.put('facebookPostData', facebookPostData);
-                console.log("facebookPostCache.get('facebookPostData')");
                 console.log(facebookPostCache.get('facebookPostData'));
             }
 
-            //return allComplete;
+            return allComplete;
+        };
+
+        facebookAPI.convertGraphData = function() {
+            var rawPostData = facebookPostCache.get('facebookPostData'),
+                statusLikes = _getLikes('statuses'),
+                photoLikes = _getLikes('photos'),
+                linkLikes = _getLikes('links'),
+                videoLikes = _getLikes('videos');
+            
+        };
+        function _getLikes(postType) {
+            console.log('postType');
+            console.log(postType);
         };
 
         return facebookAPI;
@@ -44,6 +56,9 @@ angular.module('facebook.services', [])
     })
     .factory('facebookPostCache', function($cacheFactory) {
         return $cacheFactory('facebookPostData');
+    })
+    .factory('facebookGraphCache', function($cacheFactory) {
+        return $cacheFactory('facebookGraphData');
     })
     .factory('facebookAuthFactory', function($facebook, facebookUserCache) {
         var facebookAuth = {};
