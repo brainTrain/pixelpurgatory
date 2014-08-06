@@ -35,11 +35,11 @@
         <h2>Abandon (design)hope all ye who enter here...</h2>
 
         <h3 class="cursor-pointer" ng-hide="fb.isLoggedIn">gotta log in dawg</h3>
-        <h3 class="cursor-pointer" ng-show="fb.isLoggedIn">whatup {{ fb.facebookData.user.name }}?</h3>
+        <h3 class="cursor-pointer" ng-show="fb.isLoggedIn">whatup {{ fb.facebookUserData.name }}?</h3>
 
         <button class="cursor-pointer" ng-click="fb.FBLogin()" ng-hide="fb.isLoggedIn">let me in!</button>
         <button class="cursor-pointer" ng-click="fb.FBLogout()" ng-show="fb.isLoggedIn">let me out!</button>
-        <button class="cursor-pointer" ng-click="fb.getIt()" ng-show="fb.isLoggedIn">get it!</button>
+        <button class="cursor-pointer" ng-click="fb.getAllPosts()" ng-show="fb.isLoggedIn">get posts!</button>
 
         <h3>{{ fb.statusesFinish }}</h3>
         <h3>{{ fb.photosFinish }}</h3>

@@ -1,39 +1,41 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', function($facebook, facebookDataFactory, facebookDataCache, facebookAuthFactory) {
+    .controller('facebookController', function($facebook, facebookDataFactory, facebookUserCache, facebookPostCache, facebookAuthFactory) {
         var vm = this;
         vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
         vm.FBLogin =  function() {
-            facebookAuthFactory
+            $facebook
                 .login()
                 .then(function() {
-                    vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
-                    vm.facebookData = facebookDataCache.get('facebookData');
+                    facebookAuthFactory
+                        .getCredentials()
+                        .finally(function() {
+                            vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
+                            vm.facebookUserData = facebookUserCache.get('facebookUserData');
+                        });
                 });
         };
         vm.FBLogout =  function() {
-            $facebook
+            facebookAuthFactory
                 .logout()
-                .then(function(){
-                })
-                .finally(function(){
-                    // clear out cache when the user logs out
-                    vm.isLoggedIn = false;
-                    vm.facebookData = facebookDataCache.get('facebookData');
-                    //facebookDataCache.put('facebookData', {})
+                .then(function() {
+                    vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
+                    vm.facebookUserData = facebookUserCache.get('facebookUserData');
                     // clear out statuses
                     vm.statusesFinish = '';
                     vm.photosFinish = '';
                     vm.videosFinish = '';
                     vm.linksFinish = '';
+                }, function() {
+                    // pass through errorz
                 });
         };
-        vm.getIt =  function() {
+        vm.getAllPosts =  function() {
             vm.statusesFinish = '';
             vm.photosFinish = '';
             vm.videosFinish = '';
             vm.linksFinish = '';
 
-            var facebookData = facebookDataCache.get('facebookData'),
+            var facebookPostData = facebookPostCache.get('facebookPostData') || {},
                 requestComplete = {
                     "gotStatuses" : false,
                     "gotPhotos" : false,
@@ -43,69 +45,60 @@ angular.module('facebook.controllers', [])
 
             // update the until value so we know when these requests were made
             // and make sure that sucker's an int so I don't have to do conversions elsewhere
-            facebookData.data.until = parseInt(new Date().getTime()/1000, 10);
+            facebookPostData.until = parseInt(new Date().getTime()/1000, 10);
 
             facebookDataFactory
                 .getPostedStatuses()
                 .then(function(success) {
-                        facebookData.data.statuses = success.data;
+                        facebookPostData.statuses = success.data;
                         vm.statusesFinish = 'successfully got statuses';
                     }, function(error) {
-                        facebookData.data.statuses = [];
+                        facebookPostData.statuses = [];
                         vm.statusesFinish = 'error getting statuses';
                 })
                 .finally(function() {
                     requestComplete.gotStatuses = true;    
-                    updateCacheData(facebookData, requestComplete);
+                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                 });
             facebookDataFactory
                 .getPostedPhotos()
                 .then(function(success) {
-                        facebookData.data.photos = success.data;
+                        facebookPostData.photos = success.data;
                         vm.photosFinish = 'successfully got photos';
                     }, function(error) {
-                        facebookData.data.photos = [];
+                        facebookPostData.photos = [];
                         vm.photosFinish = 'error getting photos';
                 })
                 .finally(function() {
                     requestComplete.gotPhotos = true;
-                    updateCacheData(facebookData, requestComplete);
+                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                 });
             facebookDataFactory
                 .getPostedVideos()
                 .then(function(success) {
-                        facebookData.data.videos = success.data;
+                        facebookPostData.videos = success.data;
                         vm.videosFinish = 'successfully got videos';
                     }, function(error) {
-                        facebookData.data.videos = [];
+                        facebookPostData.videos = [];
                         vm.videosFinish = 'error getting videos';
                 })
                 .finally(function() {
                     requestComplete.gotVideos = true;
-                    updateCacheData(facebookData, requestComplete);
+                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                 });
             facebookDataFactory
                 .getPostedLinks()
                 .then(function(success) {
-                        facebookData.data.links = success.data;
+                        facebookPostData.links = success.data;
                         vm.linksFinish = 'successfully got links';
                     }, function(error) {
-                        facebookData.links = [];
+                        facebookPostData.links = [];
                         vm.linksFinish = 'failed getting links';
                 })
                 .finally(function() {
                     requestComplete.gotLinks = true;
-                    updateCacheData(facebookData, requestComplete);
+                    facebookDataFactory.updateCacheData(facebookPostData, requestComplete);
                 });
         };
-        function updateCacheData(facebookData, requestComplete) {
-            var allComplete = requestComplete.gotStatuses === true && 
-                              requestComplete.gotPhotos === true && 
-                              requestComplete.gotVideos === true && 
-                              requestComplete.gotLinks === true;
-            if(allComplete) {
-                facebookDataCache.put('facebookData', facebookData);
-                console.log(facebookDataCache.get('facebookData'));
-            }
-        };
+
     });

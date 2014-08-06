@@ -1,5 +1,5 @@
 angular.module('facebook.services', [])
-    .factory('facebookDataFactory', function($facebook){
+    .factory('facebookDataFactory', function($facebook, facebookPostCache){
         var facebookAPI = {},
             facebookPromise;
 
@@ -23,42 +23,51 @@ angular.module('facebook.services', [])
             return facebookPromise;
         }; 
 
+        facebookAPI.updateCacheData = function(facebookPostData, requestComplete) {
+            var allComplete = requestComplete.gotStatuses === true && 
+                              requestComplete.gotPhotos === true && 
+                              requestComplete.gotVideos === true && 
+                              requestComplete.gotLinks === true;
+            if(allComplete) {
+                facebookPostCache.put('facebookPostData', facebookPostData);
+                console.log("facebookPostCache.get('facebookPostData')");
+                console.log(facebookPostCache.get('facebookPostData'));
+            }
+
+            //return allComplete;
+        };
+
         return facebookAPI;
     })
-    .factory('facebookDataCache', function($cacheFactory) {
-        return $cacheFactory('facebookData');
+    .factory('facebookUserCache', function($cacheFactory) {
+        return $cacheFactory('facebookUserData');
     })
-    .factory('facebookAuthFactory', function($facebook, facebookDataCache) {
+    .factory('facebookPostCache', function($cacheFactory) {
+        return $cacheFactory('facebookPostData');
+    })
+    .factory('facebookAuthFactory', function($facebook, facebookUserCache) {
         var facebookAuth = {};
 
         facebookAuth.isLoggedIn = false;
         facebookAuth.userData = {};
 
-        facebookAuth.login = function() {
+        facebookAuth.getCredentials = function() {
             return $facebook
                 .api('/me')
                 .then(function(response) {
                         // set new cache on login
-                        var authedResponse = {
-                            "user": {
-                                "id": response.id,
-                                "name": response.name,
-                                "first_name": response.first_name,
-                                "last_name": response.last_name
-                            },
-                            "data": {
-                                "until": "",
-                                "links": [],
-                                "statuses": [],
-                                "photos": []
-                            }
+                        var userData = {
+                            "id": response.id,
+                            "name": response.name,
+                            "first_name": response.first_name,
+                            "last_name": response.last_name
                         };
-
                         facebookAuth.isLoggedIn = true;
-                        facebookDataCache.put('facebookData', authedResponse);
+                        facebookUserCache.put('facebookUserData', userData);
                     },
                     function(error) {
                         // pass through for now
+                        facebookUserCache.put('facebookUserData', {});
                     });
         };
 
@@ -73,5 +82,6 @@ angular.module('facebook.services', [])
                         // pass through for now
                     });
         };
+
         return facebookAuth;
     });
