@@ -34,12 +34,18 @@
         <div id="fb-root"></div>
         <h2>Abandon (design)hope all ye who enter here...</h2>
 
-        <h3 class="cursor-pointer" ng-hide="fb.isLoggedIn">gotta log in dawg</h3>
-        <h3 class="cursor-pointer" ng-show="fb.isLoggedIn">whatup {{ fb.facebookUserData.name }}?</h3>
+        <h3 ng-hide="fb.isLoggedIn">gotta log in dawg</h3>
+        <h3 ng-show="fb.isLoggedIn">whatup {{ fb.facebookUserData.name }}?</h3>
 
         <button class="cursor-pointer" ng-click="fb.FBLogin()" ng-hide="fb.isLoggedIn">let me in!</button>
         <button class="cursor-pointer" ng-click="fb.FBLogout()" ng-show="fb.isLoggedIn">let me out!</button>
         <button class="cursor-pointer" ng-click="fb.getAllPosts()" ng-show="fb.isLoggedIn">get posts!</button>
+
+        <h3 ng-show="fb.isLoggedIn">Sort this stuff:</h3>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('total')" ng-show="fb.isLoggedIn">by total</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('photos')" ng-show="fb.isLoggedIn">by photos</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('statuses')" ng-show="fb.isLoggedIn">by statuses</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('videos')" ng-show="fb.isLoggedIn">by videos</button>
 
         <h3>{{ fb.statusesFinish }}</h3>
         <h3>{{ fb.photosFinish }}</h3>
@@ -47,8 +53,8 @@
         <h3>{{ fb.linksFinish }}</h3>
 
         <br/>
-        <div ng-repeat="graph in fb.graphArray">
-            <h3>{{ graph.name }}:  {{ graph.likes.statuses.count + graph.likes.links.count + graph.likes.photos.count + graph.likes.videos.count}}</h3>
+        <div ng-repeat="graph in fb.graphArray | orderBy : 'likes.total' : true">
+            <h3>{{ graph.name }}:  {{ graph.likes.total }}</h3>
             <h4>statuses: {{ graph.likes.statuses.count }}</h4>
             <h4>links: {{ graph.likes.links.count }}</h4>
             <h4>photos: {{ graph.likes.photos.count }}</h4>

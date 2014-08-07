@@ -1,5 +1,5 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', function($facebook, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory) {
+    .controller('facebookController', function($facebook, $filter, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory) {
         var vm = this;
         vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
         vm.FBLogin =  function() {
@@ -109,6 +109,14 @@ angular.module('facebook.controllers', [])
                     }
                 });
         };
+
+        vm.sortStuffs =  function(sortType) {
+            var unsortedArray = facebookGraphCache.get('facebookGraphData'), 
+                newOrder = $filter('orderBy')(unsortedArray, 'likes.photos.count', true)
+
+            vm.graphArray = newOrder;
+        };
+
         function _getGraphy() {
             var graphArray = facebookDataFactory.convertGraphData();
             facebookGraphCache.put('facebookGraphData', graphArray);

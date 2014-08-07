@@ -54,13 +54,15 @@ angular.module('facebook.services', [])
 
         function _bucketLikesByUser(statusLikes, photoLikes, linkLikes, videoLikes) {
             var userHash = {},
-                likeCount;
+                totalLikeCount,
+                thisLikeCount;
             angular.forEach(statusLikes.likes, function(value, key) {
                 if(!userHash[value.id]) {
                     userHash[value.id] = {
                         id: value.id,
                         name: value.name,
                         likes: {
+                            'total': 1,
                             'statuses': {
                                 type: 'statuses',
                                 count: 1
@@ -80,8 +82,11 @@ angular.module('facebook.services', [])
                         }
                     }
                 } else {
-                    likeCount = userHash[value.id].likes['statuses'].count;
-                    userHash[value.id].likes['statuses'].count = likeCount + 1;
+                    totalLikeCount = userHash[value.id].likes.total;
+                    thisLikeCount = userHash[value.id].likes['statuses'].count;
+
+                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes['statuses'].count = thisLikeCount + 1;
                 }
             });
 
@@ -91,6 +96,7 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
+                            'total': 1,
                             'statuses': {
                                 type: 'statuses',
                                 count: 0
@@ -110,8 +116,11 @@ angular.module('facebook.services', [])
                         }
                     }
                 } else {
-                    likeCount = userHash[value.id].likes['links'].count;
-                    userHash[value.id].likes['links'].count = likeCount + 1;
+                    totalLikeCount = userHash[value.id].likes.total;
+                    thisLikeCount = userHash[value.id].likes['links'].count;
+
+                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes['links'].count = thisLikeCount + 1;
                 }
             });
 
@@ -121,6 +130,7 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
+                            'total': 1,
                             'statuses': {
                                 type: 'statuses',
                                 count: 0
@@ -140,8 +150,11 @@ angular.module('facebook.services', [])
                         }
                     }
                 } else {
-                    likeCount = userHash[value.id].likes['photos'].count;
-                    userHash[value.id].likes['photos'].count = likeCount + 1;
+                    totalLikeCount = userHash[value.id].likes.total;
+                    thisLikeCount = userHash[value.id].likes['photos'].count;
+
+                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes['photos'].count = thisLikeCount + 1;
                 }
             });
 
@@ -151,6 +164,7 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
+                            'total': 1,
                             'statuses': {
                                 type: 'statuses',
                                 count: 0
@@ -170,8 +184,11 @@ angular.module('facebook.services', [])
                         }
                     }
                 } else {
-                    likeCount = userHash[value.id].likes['videos'].count;
-                    userHash[value.id].likes['videos'].count = likeCount + 1;
+                    totalLikeCount = userHash[value.id].likes.total;
+                    thisLikeCount = userHash[value.id].likes['videos'].count;
+
+                    userHash[value.id].likes['videos'].count = thisLikeCount + 1;
+                    userHash[value.id].likes.total = totalLikeCount + 1;
                 }
             });
 
