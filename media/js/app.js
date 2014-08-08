@@ -3,7 +3,10 @@ angular
         'base',
         'ngFacebook',
         'facebook.controllers',
-        'facebook.services'
+        'facebook.directives',
+        'facebook.services',
+        'd3.controllers',
+        'd3.services'
     ])
     .config(function($facebookProvider){
         $facebookProvider

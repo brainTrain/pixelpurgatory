@@ -1,5 +1,5 @@
 angular.module('facebook.controllers', [])
-    .controller('facebookController', function($facebook, $filter, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory) {
+    .controller('facebookController', function($facebook, $filter, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory, d3Service) {
         var vm = this;
 
         vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
