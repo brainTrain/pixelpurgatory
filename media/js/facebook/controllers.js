@@ -1,6 +1,7 @@
 angular.module('facebook.controllers', [])
     .controller('facebookController', function($facebook, $filter, facebookDataFactory, facebookUserCache, facebookPostCache, facebookGraphCache, facebookAuthFactory) {
         var vm = this;
+
         vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
         vm.FBLogin =  function() {
             $facebook
@@ -23,14 +24,14 @@ angular.module('facebook.controllers', [])
                     vm.isLoggedIn = facebookAuthFactory.isLoggedIn;
                     vm.facebookUserData = facebookUserCache.get('facebookUserData');
                     // clear out statuses
-                    clearDownloadStatus();
+                    _clearDownloadStatus();
                 }, function() {
                     // pass through errorz
                 });
         };
 
         vm.getAllPosts =  function() {
-            clearDownloadStatus();
+            _clearDownloadStatus();
             var facebookPostData = facebookPostCache.get('facebookPostData') || {},
                 requestComplete = {
                     "gotStatuses" : false,
@@ -111,10 +112,13 @@ angular.module('facebook.controllers', [])
         };
 
         vm.sortStuffs =  function(sortType) {
-            var unsortedArray = facebookGraphCache.get('facebookGraphData'), 
-                newOrder = $filter('orderBy')(unsortedArray, 'likes.photos.count', true)
+            _crazySort(sortType);
+        };
 
-            vm.graphArray = newOrder;
+        function _crazySort(sortType) {
+            var unsortedArray = facebookGraphCache.get('facebookGraphData');
+                newSort = $filter('orderBy')(vm.graphArray, ['likes.' + sortType + '.count', 'name'], true);
+            vm.graphArray = newSort;
         };
 
         function _getGraphy() {
@@ -122,8 +126,9 @@ angular.module('facebook.controllers', [])
             facebookGraphCache.put('facebookGraphData', graphArray);
 
             vm.graphArray = graphArray;
+            _crazySort('total');
         };
-        function clearDownloadStatus() {
+        function _clearDownloadStatus() {
             vm.statusesFinish = '';
             vm.photosFinish = '';
             vm.videosFinish = '';

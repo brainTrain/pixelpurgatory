@@ -62,30 +62,32 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
-                            'total': 1,
-                            'statuses': {
-                                type: 'statuses',
-                                count: 1
+                            "total": {
+                                "count": 1
                             },
-                            'photos': {
-                                type: 'photos',
-                                count: 0
+                            "statuses": {
+                                "type": "statuses",
+                                "count": 1
                             },
-                            'videos': {
-                                type: 'videos',
-                                count: 0
+                            "photos": {
+                                "type": "photos",
+                                "count": 0
                             },
-                            'links': {
-                                type: 'links',
-                                count: 0
+                            "videos": {
+                                "type": "videos",
+                                "count": 0
+                            },
+                            "links": {
+                                "type": "links",
+                                "count": 0
                             }
                         }
                     }
                 } else {
-                    totalLikeCount = userHash[value.id].likes.total;
+                    totalLikeCount = userHash[value.id].likes.total.count;
                     thisLikeCount = userHash[value.id].likes['statuses'].count;
 
-                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes.total.count = totalLikeCount + 1;
                     userHash[value.id].likes['statuses'].count = thisLikeCount + 1;
                 }
             });
@@ -96,30 +98,32 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
-                            'total': 1,
-                            'statuses': {
-                                type: 'statuses',
-                                count: 0
+                            "total": {
+                                "count": 1
                             },
-                            'photos': {
-                                type: 'photos',
-                                count: 0
+                            "statuses": {
+                                "type": "statuses",
+                                "count": 0
                             },
-                            'videos': {
-                                type: 'videos',
-                                count: 0
+                            "photos": {
+                                "type": "photos",
+                                "count": 0
                             },
-                            'links': {
-                                type: 'links',
-                                count: 1
+                            "videos": {
+                                "type": "videos",
+                                "count": 0
+                            },
+                            "links": {
+                                "type": "links",
+                                "count": 1
                             }
                         }
                     }
                 } else {
-                    totalLikeCount = userHash[value.id].likes.total;
+                    totalLikeCount = userHash[value.id].likes.total.count;
                     thisLikeCount = userHash[value.id].likes['links'].count;
 
-                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes.total.count = totalLikeCount + 1;
                     userHash[value.id].likes['links'].count = thisLikeCount + 1;
                 }
             });
@@ -130,30 +134,32 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
-                            'total': 1,
-                            'statuses': {
-                                type: 'statuses',
-                                count: 0
+                            "total": {
+                                "count": 1
                             },
-                            'photos': {
-                                type: 'photos',
-                                count: 1
+                            "statuses": {
+                                "type": "statuses",
+                                "count": 0
                             },
-                            'videos': {
-                                type: 'videos',
-                                count: 0
+                            "photos": {
+                                "type": "photos",
+                                "count": 1
                             },
-                            'links': {
-                                type: 'links',
-                                count: 0
+                            "videos": {
+                                "type": "videos",
+                                "count": 0
+                            },
+                            "links": {
+                                "type": "links",
+                                "count": 0
                             }
                         }
                     }
                 } else {
-                    totalLikeCount = userHash[value.id].likes.total;
+                    totalLikeCount = userHash[value.id].likes.total.count;
                     thisLikeCount = userHash[value.id].likes['photos'].count;
 
-                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes.total.count = totalLikeCount + 1;
                     userHash[value.id].likes['photos'].count = thisLikeCount + 1;
                 }
             });
@@ -164,31 +170,33 @@ angular.module('facebook.services', [])
                         id: value.id,
                         name: value.name,
                         likes: {
-                            'total': 1,
-                            'statuses': {
-                                type: 'statuses',
-                                count: 0
+                            "total": {
+                                "count": 1
                             },
-                            'photos': {
-                                type: 'photos',
-                                count: 0
+                            "statuses": {
+                                "type": "statuses",
+                                "count": 0
                             },
-                            'videos': {
-                                type: 'videos',
-                                count: 1
+                            "photos": {
+                                "type": "photos",
+                                "count": 0
                             },
-                            'links': {
-                                type: 'links',
-                                count: 0
+                            "videos": {
+                                "type": "videos",
+                                "count": 1
+                            },
+                            "links": {
+                                "type": "links",
+                                "count": 0
                             }
                         }
                     }
                 } else {
-                    totalLikeCount = userHash[value.id].likes.total;
+                    totalLikeCount = userHash[value.id].likes.total.count;
                     thisLikeCount = userHash[value.id].likes['videos'].count;
 
                     userHash[value.id].likes['videos'].count = thisLikeCount + 1;
-                    userHash[value.id].likes.total = totalLikeCount + 1;
+                    userHash[value.id].likes.total.count = totalLikeCount + 1;
                 }
             });
 
@@ -258,7 +266,7 @@ angular.module('facebook.services', [])
                 .logout()
                 .then(function(response) {
                         facebookAuth.isLoggedIn = false;
-                        facebookDataCache.put('facebookData', {});
+                        facebookUserCache.put('facebookUserData', {});
                     },
                     function(error) {
                         // pass through for now
