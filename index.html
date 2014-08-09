@@ -26,11 +26,11 @@
 
         <!-- facebookz -->
         <script type="text/javascript" src="/media/js/facebook/controllers.js"></script>
-        <script type="text/javascript" src="/media/js/facebook/directives.js"></script>
         <script type="text/javascript" src="/media/js/facebook/services.js"></script>
 
         <!-- d3z -->
         <script type="text/javascript" src="/media/js/d3/controllers.js"></script>
+        <script type="text/javascript" src="/media/js/d3/directives.js"></script>
         <script type="text/javascript" src="/media/js/d3/services.js"></script>
 
     </head>
@@ -46,16 +46,17 @@
         <button class="cursor-pointer" ng-click="fb.getAllPosts()" ng-show="fb.isLoggedIn">get posts!</button>
 
         <h3 ng-show="fb.isLoggedIn">Sort this stuff:</h3>
-        <button class="cursor-pointer" ng-click="fb.sortStuffs('total')" ng-show="fb.isLoggedIn">by total</button>
-        <button class="cursor-pointer" ng-click="fb.sortStuffs('photos')" ng-show="fb.isLoggedIn">by photos</button>
-        <button class="cursor-pointer" ng-click="fb.sortStuffs('statuses')" ng-show="fb.isLoggedIn">by statuses</button>
-        <button class="cursor-pointer" ng-click="fb.sortStuffs('links')" ng-show="fb.isLoggedIn">by links</button>
-        <button class="cursor-pointer" ng-click="fb.sortStuffs('videos')" ng-show="fb.isLoggedIn">by videos</button>
 
         <h3>{{ fb.statusesFinish }}</h3>
         <h3>{{ fb.photosFinish }}</h3>
         <h3>{{ fb.videosFinish }}</h3>
         <h3>{{ fb.linksFinish }}</h3>
+
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('total')" ng-show="fb.isLoggedIn">by total</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('photos')" ng-show="fb.isLoggedIn">by photos</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('statuses')" ng-show="fb.isLoggedIn">by statuses</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('links')" ng-show="fb.isLoggedIn">by links</button>
+        <button class="cursor-pointer" ng-click="fb.sortStuffs('videos')" ng-show="fb.isLoggedIn">by videos</button>
 
         <div d3-bars bar-height="20" bar-padding="5"></div>
 
