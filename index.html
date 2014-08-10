@@ -39,22 +39,57 @@
         <div class="header-wrapper">
             <div class="header">
                 <!-- logged out view -->
-                <span class="login header-nav header-item header-text cursor-pointer float-left" ng-click="fb.FBLogin()" ng-hide="fb.isLoggedIn">login to facebook</span>
+                <span 
+                    class="login header-nav header-item header-text cursor-pointer float-left" 
+                    ng-click="fb.FBLogin()" 
+                    ng-hide="fb.isLoggedIn"
+                >login to facebook</span>
                 <!-- logged in view -->
-                <span class="total header-nav header-item header-text cursor-pointer float-left" ng-click="fb.sortStuffs('total')" ng-show="fb.isLoggedIn">total</span>
-                <span class="statuses header-nav header-item header-text cursor-pointer float-left" ng-click="fb.sortStuffs('statuses')" ng-show="fb.isLoggedIn">statuses</span>
-                <span class="links header-nav header-item header-text cursor-pointer float-left" ng-click="fb.sortStuffs('links')" ng-show="fb.isLoggedIn">links</span>
-                <span class="photos header-nav header-item header-text cursor-pointer float-left" ng-click="fb.sortStuffs('photos')" ng-show="fb.isLoggedIn">photos</span>
-                <span class="videos header-nav header-item header-text cursor-pointer float-left" ng-click="fb.sortStuffs('videos')" ng-show="fb.isLoggedIn">videos</span>
-                <span class="videos header-nav header-item header-text cursor-pointer float-left" ng-click="fb.getAllPosts()" ng-show="fb.isLoggedIn">get posts!</span>
+                <span 
+                    class="total header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'total' && 'active' || '' }}" 
+                    ng-click="fb.sortStuffs('total')" 
+                    ng-show="fb.isLoggedIn"
+                >total</span>
+                <span 
+                    class="statuses header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'statuses' && 'active' || '' }}" 
+                    ng-click="fb.sortStuffs('statuses')" 
+                    ng-show="fb.isLoggedIn"
+                >statuses</span>
+                <span 
+                    class="links header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'links' && 'active' || '' }}" 
+                    ng-click="fb.sortStuffs('links')" 
+                    ng-show="fb.isLoggedIn"
+                >links</span>
+                <span 
+                    class="photos header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'photos' && 'active' || '' }}" 
+                    ng-click="fb.sortStuffs('photos')" 
+                    ng-show="fb.isLoggedIn"
+                >photos</span>
+                <span 
+                    class="videos header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'videos' && 'active' || '' }}" 
+                    ng-click="fb.sortStuffs('videos')" 
+                    ng-show="fb.isLoggedIn"
+                >videos</span>
+                <span 
+                    class="videos header-nav header-item header-text cursor-pointer float-left" 
+                    ng-click="fb.getAllPosts()" 
+                    ng-show="fb.isLoggedIn"
+                >get posts!</span>
 
-                <span class="logout header-nav header-item header-text cursor-pointer float-right" ng-click="fb.FBLogout()" ng-show="fb.isLoggedIn">logout of facebook</span>
-                <h3 class="username header-text header-item float-right" ng-show="fb.isLoggedIn">whatup {{ fb.facebookUserData.name }}?</h3>
+                <span 
+                    class="logout header-nav header-item header-text cursor-pointer float-right" 
+                    ng-click="fb.FBLogout()" 
+                    ng-show="fb.isLoggedIn"
+                >logout of facebook</span>
+                <h3 
+                    class="username not-mobile header-text header-item float-right" 
+                    ng-show="fb.isLoggedIn"
+                >whatup {{ fb.facebookUserData.name }}?</h3>
             </div>
         </div>
         <div class="content">
             <div class="graph-container">
-                <d3-bars bar-height="20" bar-padding="5" graph-title="Visualize facebook likes" ng-show="fb.isLoggedIn"></d3-bars>
+                <d3-bars graph-type="total" bar-height="20" bar-padding="5" graph-title="Visualize facebook likes" ng-show="fb.isLoggedIn"></d3-bars>
             </div>
         </div>
 

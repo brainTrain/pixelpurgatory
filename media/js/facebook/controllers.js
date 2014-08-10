@@ -119,6 +119,7 @@ angular.module('facebook.controllers', [])
             var unsortedArray = facebookGraphCache.get('facebookGraphData');
                 newSort = $filter('orderBy')(vm.graphArray, ['likes.' + sortType + '.count', 'name'], true);
             vm.graphArray = newSort;
+            vm.graphType = sortType;
         };
 
         function _getGraphy() {

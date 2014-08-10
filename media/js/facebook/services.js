@@ -3,23 +3,25 @@ angular.module('facebook.services', [])
         var facebookAPI = {},
             facebookPromise;
 
+        facebookAPI.queryParams = '?since=2014-01-08T16:02:49+0000&until=now&limit=100';
+
         facebookAPI.getPostedStatuses = function() {
-            facebookPromise = $facebook.api('/v2.0/me/statuses?limit=100');
+            facebookPromise = $facebook.api('/v2.0/me/statuses' + facebookAPI.queryParams);
             return facebookPromise;
         }; 
 
         facebookAPI.getPostedLinks = function() {
-            facebookPromise = $facebook.api('/v2.0/me/links?limit=100');
+            facebookPromise = $facebook.api('/v2.0/me/links' + facebookAPI.queryParams);
             return facebookPromise;
         }; 
         
         facebookAPI.getPostedPhotos = function() {
-            facebookPromise = $facebook.api('/v2.0/me/photos/uploaded?limit=100');
+            facebookPromise = $facebook.api('/v2.0/me/photos/uploaded' + facebookAPI.queryParams);
             return facebookPromise;
         }; 
 
         facebookAPI.getPostedVideos = function() {
-            facebookPromise = $facebook.api('/v2.0/me/videos/uploaded?limit=100');
+            facebookPromise = $facebook.api('/v2.0/me/videos/uploaded' + facebookAPI.queryParams);
             return facebookPromise;
         }; 
 
