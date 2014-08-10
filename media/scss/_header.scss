@@ -1,0 +1,29 @@
+$header-text-color: map-get($header, text-color);
+.header-wrapper {
+    position: fixed;
+    width: 100%;
+    background-color: map-get($header, background-color);
+    z-index: map-get($z-index, header);
+    .header {
+        height: map-get($header, height);
+        border-bottom: 1px solid map-get($header, border-bottom-color);
+        padding-left: 5px;
+        padding-right: 5px;
+
+        .header-text {
+            font-family: helvetica;
+            font-size: 20px;
+            padding: 5px;
+            color: $header-text-color;
+        }
+        .header-nav {
+            &:hover {
+                border-bottom: 2px solid $header-text-color;
+            }
+        }
+        .header-item {
+            height: 100%;
+            padding-top: 5px;
+        }
+    }
+}

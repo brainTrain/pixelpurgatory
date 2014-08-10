@@ -11,6 +11,7 @@ angular.module('d3.directives', [])
                         var margin = parseInt(attrs.margin) || 20,
                             barHeight = parseInt(attrs.barHeight) || 20,
                             barPadding = parseInt(attrs.barPadding) || 5,
+                            barTitle = attrs.graphTitle || '',
                             svg = d3.select(element[0])
                                     .append('svg')
                                     .style('width', '100%');
@@ -26,15 +27,18 @@ angular.module('d3.directives', [])
                         });
                         // watches facebook controller's graphArray change for rendering graph
                         scope.$watch(function() {
+                            // TODO: there's gotta be a better way than parent traversals to do this
                             return scope.$parent.fb.graphArray;
                         }, function(graphArray) {
                             scope.graphArray = graphArray;
                             return scope.render(scope.graphArray);
                         });
-
+                        scope.clearCurrentGraph = function() {
+                            svg.selectAll('*').remove();
+                        };
                         scope.render = function(graphArray) {
                             // clean up previous svg'z
-                            svg.selectAll('*').remove();
+                            scope.clearCurrentGraph();
                             // only do this stuff if we get data
                             if(graphArray) {
                                 var width = d3.select(element[0])[0][0].offsetWidth - margin,
@@ -57,9 +61,7 @@ angular.module('d3.directives', [])
                                         .attr('y', function(d, i) {
                                             return i * (barHeight + barPadding); 
                                         })
-                                        .attr('fill', function(d) {
-                                            return color(d.likes.total.count);
-                                        })
+                                        .attr('fill', '#3b5998')
                                         .transition()
                                             .duration(1000)
                                             .attr('width', function(d) {
@@ -69,7 +71,7 @@ angular.module('d3.directives', [])
                                     .data(graphArray)
                                     .enter()
                                         .append('text')
-                                        .attr('fill', '#545450')
+                                        .attr('fill', '#fff')
                                         .attr('y', function(d, i) {
                                             return i * (barHeight + barPadding) + 15;
                                         })
@@ -79,13 +81,6 @@ angular.module('d3.directives', [])
                                         })
                             }
                         };
-                        /*
-                        scope.$watch('graphArray', function(newVals, oldVals) {
-                            console.log('hmmm');
-                            console.log(newVals);
-                            return scope.render(newVals);
-                        }, true);
-                        */
                     });
 
             }

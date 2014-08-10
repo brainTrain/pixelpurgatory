@@ -1,35 +1,57 @@
-* {
-    @include box-sizing(border-box);
-}
-
-a {
-    color: #383D3D;
-    font-size: 20px;
-    font-family: helvetica;
-    text-decoration: none;
-}
-
-input, textarea {
-    font-size: 20px;
-    color: #016A79;
-    background-color: #e9e9e4;
-    padding: 5px;
-    border: 2px solid #3e4756;
-}
-
-.not-mobile {
-    @include breakpoint(small) { display: none; }
-}
-
 @mixin overflow-scrolling($scroll-type) {
     -webkit-overflow-scrolling: $scroll-type;
 }
 
-@mixin pre-wrap() {
-    white-space: -moz-pre-wrap;
-    white-space: -o-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: pre-wrap;
+body {
+    background-color: #e9e9e4;
+}
+* {
+    @include box-sizing(border-box);
+}
+*::selection {
+    background-color: #3e4756;
+    color: #d3d3c9;
+}
+*::-moz-selection {
+    background-color: #3e4756;
+    color: #d3d3c9;
+}
+a {
+    font-size: 20px;
+    font-family: helvetica;
+    text-decoration: none;
+}
+input, textarea {
+    font-size: 20px;
+    padding: 5px;
+}
+h1,h2,h3,h4 {
+    font-family: helvetica;
+}
+h1 {
+    font-size: 60px;
+    @include breakpoint(small) { font-size: 30px; }
+}
+h2 {
+    font-size: 30px;
+    padding: 12px;
+    @include breakpoint(small) { font-size: 15px; }
+}
+.content {
+    position: absolute;
+    width: 100%;
+    padding: 20px;
+    @include overflow-scrolling(touch);
+    overflow-y: auto;
+    z-index: map-get($z-index, content);
+    margin-top: map-get($header, height);
 
-    white-space: break-word;
+    .graph-wrapper {
+        position: relative;
+        min-height: 100px;
+        width: 100%;
+    }
+}
+.not-mobile {
+    @include breakpoint(small) { display: none; }
 }

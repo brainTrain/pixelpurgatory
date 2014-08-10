@@ -2,7 +2,7 @@
     This is a Compass Project.
     aiight? aiight.
 */
-/* line 5, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.alpha.21/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../home/braintrain/.rvm/gems/ruby-2.1.2/gems/compass-core-1.0.0.rc.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -125,72 +125,49 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: inline-block;
 }
 
-/* line 1, ../scss/_base.scss */
+/* line 5, ../scss/_base.scss */
+body {
+  background-color: #e9e9e4;
+}
+
+/* line 8, ../scss/_base.scss */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 5, ../scss/_base.scss */
-a {
-  color: #383D3D;
-  font-size: 20px;
-  font-family: helvetica;
-  text-decoration: none;
-}
-
-/* line 12, ../scss/_base.scss */
-input, textarea {
-  font-size: 20px;
-  color: #016A79;
-  background-color: #e9e9e4;
-  padding: 5px;
-  border: 2px solid #3e4756;
-}
-
-/* line 20, ../scss/_base.scss */
-.not-mobile {
-  /*  Lovingly lifted from the following:
-      http://css-tricks.com/media-queries-sass-3-2-and-codekit/
-  */
-}
-@media (max-width: 650px) {
-  /* line 20, ../scss/_base.scss */
-  .not-mobile {
-    display: none;
-  }
-}
-
-/* line 1, ../scss/_brainnewstuff.scss */
-body {
-  background-color: #e9e9e4;
-}
-
-/* line 4, ../scss/_brainnewstuff.scss */
+/* line 11, ../scss/_base.scss */
 *::selection {
   background-color: #3e4756;
   color: #d3d3c9;
 }
 
-/* line 8, ../scss/_brainnewstuff.scss */
+/* line 15, ../scss/_base.scss */
 *::-moz-selection {
   background-color: #3e4756;
   color: #d3d3c9;
 }
 
-/* line 12, ../scss/_brainnewstuff.scss */
-a, .link {
-  color: #0e628f;
+/* line 19, ../scss/_base.scss */
+a {
+  font-size: 20px;
+  font-family: helvetica;
+  text-decoration: none;
 }
 
-/* line 15, ../scss/_brainnewstuff.scss */
+/* line 24, ../scss/_base.scss */
+input, textarea {
+  font-size: 20px;
+  padding: 5px;
+}
+
+/* line 28, ../scss/_base.scss */
 h1, h2, h3, h4 {
   font-family: helvetica;
-  color: #545450;
 }
 
-/* line 19, ../scss/_brainnewstuff.scss */
+/* line 31, ../scss/_base.scss */
 h1 {
   font-size: 60px;
   /*  Lovingly lifted from the following:
@@ -198,13 +175,13 @@ h1 {
   */
 }
 @media (max-width: 650px) {
-  /* line 19, ../scss/_brainnewstuff.scss */
+  /* line 31, ../scss/_base.scss */
   h1 {
     font-size: 30px;
   }
 }
 
-/* line 23, ../scss/_brainnewstuff.scss */
+/* line 35, ../scss/_base.scss */
 h2 {
   font-size: 30px;
   padding: 12px;
@@ -213,229 +190,69 @@ h2 {
   */
 }
 @media (max-width: 650px) {
-  /* line 23, ../scss/_brainnewstuff.scss */
+  /* line 35, ../scss/_base.scss */
   h2 {
     font-size: 15px;
   }
 }
 
-/* line 28, ../scss/_brainnewstuff.scss */
-pre {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-/* line 31, ../scss/_brainnewstuff.scss */
-pre code {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-/* line 35, ../scss/_brainnewstuff.scss */
-pre .wrap {
-  white-space: -moz-pre-wrap;
-  white-space: -o-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: pre-wrap;
-  white-space: break-word;
-}
-
-/* line 39, ../scss/_brainnewstuff.scss */
-.content-wrapper {
+/* line 40, ../scss/_base.scss */
+.content {
   position: absolute;
   width: 100%;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
   z-index: 7000;
-  margin-top: 85px;
+  margin-top: 33px;
 }
-
-/* line 46, ../scss/_brainnewstuff.scss */
-.list-wrapper {
+/* line 49, ../scss/_base.scss */
+.content .graph-wrapper {
   position: relative;
   min-height: 100px;
   width: 100%;
 }
 
-/* line 54, ../scss/_brainnewstuff.scss */
-.list-wrapper .thought, .list-wrapper .note {
-  background-color: #9fa3ab;
-  padding: 22px;
+/* line 55, ../scss/_base.scss */
+.not-mobile {
+  /*  Lovingly lifted from the following:
+      http://css-tricks.com/media-queries-sass-3-2-and-codekit/
+  */
 }
-
-/* line 58, ../scss/_brainnewstuff.scss */
-.content {
-  -webkit-overflow-scrolling: touch;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* line 64, ../scss/_brainnewstuff.scss */
-.thought-list, .note-list {
-  height: 100%;
-}
-
-/* line 67, ../scss/_brainnewstuff.scss */
-.note {
-  display: flex;
-  flex-direction: row;
-  color: #383D3D;
-}
-/* line 71, ../scss/_brainnewstuff.scss */
-.note .note-item {
-  flex-grow: 1;
-}
-
-/* line 75, ../scss/_brainnewstuff.scss */
-.content .hover-row:hover {
-  background-color: #c2c7bf;
-}
-
-/* line 79, ../scss/_brainnewstuff.scss */
-.divider-top {
-  border-top: 1px solid #b3b3b3;
-}
-
-/* line 82, ../scss/_brainnewstuff.scss */
-.divider-bottom {
-  border-bottom: 1px solid rgba(82, 82, 82, 0.6);
-}
-
-/* line 85, ../scss/_brainnewstuff.scss */
-.divider-both {
-  border-top: 1px solid #b3b3b3;
-  border-bottom: 1px solid rgba(82, 82, 82, 0.6);
-}
-
-/* line 89, ../scss/_brainnewstuff.scss */
-.fixed-form {
-  margin-top: 5px;
-  margin-right: 5px;
-  background-color: #e9e9e4;
-  border: 2px solid #016A79;
-}
-
-/* line 95, ../scss/_brainnewstuff.scss */
-.fixed-form label {
-  font-family: helvetica;
-  color: #016A79;
-  text-shadow: 0;
-}
-
-/* line 100, ../scss/_brainnewstuff.scss */
-.fixed-form p {
-  font-family: helvetica;
-  color: #545450;
-}
-
-/* line 104, ../scss/_brainnewstuff.scss */
-.fixed-form li {
-  font-family: helvetica;
-  color: #545450;
-}
-
-/* line 108, ../scss/_brainnewstuff.scss */
-.registration-form {
-  width: 300px;
+@media (max-width: 650px) {
+  /* line 55, ../scss/_base.scss */
+  .not-mobile {
+    display: none;
+  }
 }
 
 /* line 2, ../scss/_header.scss */
 .header-wrapper {
   position: fixed;
   width: 100%;
-  background-color: #222833;
+  background-color: #3b5998;
   z-index: 8000;
 }
 /* line 7, ../scss/_header.scss */
 .header-wrapper .header {
-  height: 40px;
-  padding: 5px;
+  height: 33px;
+  border-bottom: 1px solid #133783;
+  padding-left: 5px;
+  padding-right: 5px;
 }
-/* line 11, ../scss/_header.scss */
-.header-wrapper .header-text {
+/* line 13, ../scss/_header.scss */
+.header-wrapper .header .header-text {
   font-family: helvetica;
   font-size: 20px;
   padding: 5px;
-  color: #acacac;
-}
-/* line 17, ../scss/_header.scss */
-.header-wrapper .link {
-  color: #0e628f;
+  color: white;
 }
 /* line 20, ../scss/_header.scss */
-.header-wrapper .drop-down-container {
-  background-color: #222833;
-  position: absolute;
-  left: 0px;
-  top: 40px;
-  z-index: 9000;
-  /*  Lovingly lifted from the following:
-      http://css-tricks.com/media-queries-sass-3-2-and-codekit/
-  */
+.header-wrapper .header .header-nav:hover {
+  border-bottom: 2px solid white;
 }
-/* line 26, ../scss/_header.scss */
-.header-wrapper .drop-down-container a {
-  width: 100%;
-}
-/* line 28, ../scss/_header.scss */
-.header-wrapper .drop-down-container a:hover {
-  background-color: #4c4c52;
-}
-@media (max-width: 650px) {
-  /* line 20, ../scss/_header.scss */
-  .header-wrapper .drop-down-container {
-    width: 100%;
-  }
-}
-/* line 36, ../scss/_header.scss */
-.header-wrapper .brain-icon-wrapper {
-  padding-top: 0px;
-  padding-right: 15px;
-  margin-top: -4px;
-}
-/* line 40, ../scss/_header.scss */
-.header-wrapper .brain-icon-wrapper .brain-icon {
-  width: 30px;
-  height: 30px;
-  fill: #acacac;
-  padding-top: 0px;
-  margin-top: 0px;
-}
-/* line 47, ../scss/_header.scss */
-.header-wrapper .brain-icon-wrapper:hover {
-  background-color: #4c4c52;
-}
-/* line 50, ../scss/_header.scss */
-.header-wrapper .brain-icon-wrapper:after {
-  content: "\25BC";
-  position: absolute;
-  font-size: 8px;
-  top: 16px;
-  left: 47px;
-}
-/* line 59, ../scss/_header.scss */
-.header-wrapper .header-input input {
-  height: 30px;
-}
-
-/* line 67, ../scss/_header.scss */
-.second-header {
-  border-top: 1px solid #acacac;
-}
-/* line 69, ../scss/_header.scss */
-.second-header .filter-controls {
-  padding: 22px 0px 0px 0px;
-  height: 40px;
-}
-/* line 72, ../scss/_header.scss */
-.second-header .filter-controls .filter-control {
-  color: #acacac;
-  font-size: 20px;
-  margin-top: -18px;
-  margin-bottom: 15px;
-  width: 20px;
-  text-align: center;
-  font-weight: bolder;
-  font-size: 20px;
-}
-/* line 82, ../scss/_header.scss */
-.second-header .filter-controls .selected {
-  border: solid 1px #acacac;
+/* line 24, ../scss/_header.scss */
+.header-wrapper .header .header-item {
+  height: 100%;
+  padding-top: 5px;
 }
