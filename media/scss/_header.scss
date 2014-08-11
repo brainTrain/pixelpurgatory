@@ -27,6 +27,11 @@ $header-text-color: map-get($header, text-color);
         .header-item {
             height: map-get($header, height);
             padding-top: 5px;
+            margin-right: 5px;
+        }
+        .header-icon {
+            position: relative;
+            top: 2px;
         }
     }
 }

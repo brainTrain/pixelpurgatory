@@ -55,3 +55,6 @@ h2 {
 .not-mobile {
     @include breakpoint(small) { display: none; }
 }
+.not-tablet {
+    @include breakpoint(medium) { display: none; }
+}

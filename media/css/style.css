@@ -67,6 +67,77 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src: url("/media/img/icons/fonts/icomoon.eot?-18zd7l");
+  src: url("/media/img/icons/fonts/icomoon.eot?#iefix-18zd7l") format("embedded-opentype"), url("/media/img/icons/fonts/icomoon.woff?-18zd7l") format("woff"), url("/media/img/icons/fonts/icomoon.ttf?-18zd7l") format("truetype"), url("/media/img/icons/fonts/icomoon.svg?-18zd7l#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 12, ../scss/_fonts.scss */
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 26, ../scss/_fonts.scss */
+.icon-images:before {
+  content: "\e600";
+}
+
+/* line 29, ../scss/_fonts.scss */
+.icon-film:before {
+  content: "\e601";
+}
+
+/* line 32, ../scss/_fonts.scss */
+.icon-bars:before {
+  content: "\e602";
+}
+
+/* line 35, ../scss/_fonts.scss */
+.icon-user:before {
+  content: "\e603";
+}
+
+/* line 38, ../scss/_fonts.scss */
+.icon-download:before {
+  content: "\e604";
+}
+
+/* line 41, ../scss/_fonts.scss */
+.icon-link:before {
+  content: "\e605";
+}
+
+/* line 44, ../scss/_fonts.scss */
+.icon-loop:before {
+  content: "\e606";
+}
+
+/* line 47, ../scss/_fonts.scss */
+.icon-paragraph-justify:before {
+  content: "\e607";
+}
+
+/* line 50, ../scss/_fonts.scss */
+.icon-facebook:before {
+  content: "\e608";
+}
+
+/* line 53, ../scss/_fonts.scss */
+.icon-github:before {
+  content: "\e609";
+}
+
 /* this is where the float classes live */
 /* line 2, ../scss/_utils.scss */
 .float-left {
@@ -226,6 +297,19 @@ h2 {
   }
 }
 
+/* line 58, ../scss/_base.scss */
+.not-tablet {
+  /*  Lovingly lifted from the following:
+      http://css-tricks.com/media-queries-sass-3-2-and-codekit/
+  */
+}
+@media (max-width: 1250px) {
+  /* line 58, ../scss/_base.scss */
+  .not-tablet {
+    display: none;
+  }
+}
+
 /* line 2, ../scss/_header.scss */
 .header-wrapper {
   position: fixed;
@@ -259,4 +343,10 @@ h2 {
 .header-wrapper .header .header-item {
   height: 33px;
   padding-top: 5px;
+  margin-right: 5px;
+}
+/* line 32, ../scss/_header.scss */
+.header-wrapper .header .header-icon {
+  position: relative;
+  top: 2px;
 }
