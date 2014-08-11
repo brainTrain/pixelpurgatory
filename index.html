@@ -90,7 +90,7 @@
                     ng-click="fb.getAllPosts()" 
                     ng-show="fb.isLoggedIn"
                 >
-                    <span class="header-icon icon-download"></span>
+                    <span class="header-icon {{ fb.graphArray.length && 'icon-loop' || 'icon-download'}}"></span>
                     <span class="not-mobile not-tablet">get posts!</span>
                 </span>
 

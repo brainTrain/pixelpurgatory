@@ -127,7 +127,7 @@ angular.module('facebook.controllers', [])
             facebookGraphCache.put('facebookGraphData', graphArray);
 
             vm.graphArray = graphArray;
-            _crazySort('total');
+            _crazySort(vm.graphType || 'total');
         };
         function _clearDownloadStatus() {
             vm.statusesFinish = '';
