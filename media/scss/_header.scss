@@ -18,11 +18,11 @@ $header-text-color: map-get($header, text-color);
         }
         .header-nav {
             &:hover {
-                border-bottom: 4px solid $header-text-color;
+                border-bottom: 3px solid $header-text-color;
             }
         }
         .active {
-            border-bottom: 4px solid $header-text-color;
+            border-bottom: 3px solid $header-text-color;
         }
         .header-item {
             height: map-get($header, height);

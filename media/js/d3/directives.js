@@ -44,6 +44,7 @@ angular.module('d3.directives', [])
                             scope.clearCurrentGraph();
                             // only do this stuff if we get data
                             if(graphArray) {
+
                                 var width = d3.select(element[0])[0][0].offsetWidth - margin,
                                     height = scope.graphArray.length * (barHeight + barPadding),
                                     graphType = scope.graphType || 'total',
@@ -52,8 +53,10 @@ angular.module('d3.directives', [])
                                                 .domain([0, d3.max(graphArray, function(d) { 
                                                     return d.likes[graphType].count; 
                                                 })])
-                                                .range([0, width]);
+                                                .range([0, width]),
+                                    leftMargin = 203;
 
+                                                
                                 svg.attr('height', height);
                                 svg.selectAll('rect')
                                     .data(graphArray)
@@ -61,7 +64,7 @@ angular.module('d3.directives', [])
                                         .append('rect')
                                         .attr('height', barHeight)
                                         .attr('width', 140)
-                                        .attr('x', Math.round(margin/2))
+                                        .attr('x', leftMargin)
                                         .attr('y', function(d, i) {
                                             return i * (barHeight + barPadding); 
                                         })
@@ -71,7 +74,20 @@ angular.module('d3.directives', [])
                                             .attr('width', function(d) {
                                                 return xScale(d.likes[graphType].count);
                                             });
-                                svg.selectAll('text')
+                                svg.selectAll('name-text')
+                                    .data(graphArray)
+                                    .enter()
+                                        .append('text')
+                                        .attr('fill', '#333')
+                                        .attr('y', function(d, i) {
+                                            return i * (barHeight + barPadding) + 15;
+                                        })
+                                        .attr('x', 15)
+                                        .text(function(d) {
+                                            return d.name;
+                                        });
+
+                                svg.selectAll('count-text')
                                     .data(graphArray)
                                     .enter()
                                         .append('text')
@@ -79,10 +95,11 @@ angular.module('d3.directives', [])
                                         .attr('y', function(d, i) {
                                             return i * (barHeight + barPadding) + 15;
                                         })
-                                        .attr('x', 15)
+                                        .attr('x', leftMargin + 5)
                                         .text(function(d) {
-                                            return d.name  + " " + graphType + "(" + d.likes[graphType].count + ")";
-                                        })
+                                            return d.likes[graphType].count;
+                                        });
+
                             }
                         };
                     });

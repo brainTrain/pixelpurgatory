@@ -278,33 +278,31 @@ h2 {
   margin-top: 33px;
 }
 /* line 49, ../scss/_base.scss */
-.content .graph-wrapper {
-  position: relative;
-  min-height: 100px;
+.content .graph-container {
   width: 100%;
 }
 
-/* line 55, ../scss/_base.scss */
+/* line 53, ../scss/_base.scss */
 .not-mobile {
   /*  Lovingly lifted from the following:
       http://css-tricks.com/media-queries-sass-3-2-and-codekit/
   */
 }
 @media (max-width: 650px) {
-  /* line 55, ../scss/_base.scss */
+  /* line 53, ../scss/_base.scss */
   .not-mobile {
     display: none;
   }
 }
 
-/* line 58, ../scss/_base.scss */
+/* line 56, ../scss/_base.scss */
 .not-tablet {
   /*  Lovingly lifted from the following:
       http://css-tricks.com/media-queries-sass-3-2-and-codekit/
   */
 }
 @media (max-width: 1250px) {
-  /* line 58, ../scss/_base.scss */
+  /* line 56, ../scss/_base.scss */
   .not-tablet {
     display: none;
   }
@@ -333,11 +331,11 @@ h2 {
 }
 /* line 20, ../scss/_header.scss */
 .header-wrapper .header .header-nav:hover {
-  border-bottom: 4px solid white;
+  border-bottom: 3px solid white;
 }
 /* line 24, ../scss/_header.scss */
 .header-wrapper .header .active {
-  border-bottom: 4px solid white;
+  border-bottom: 3px solid white;
 }
 /* line 27, ../scss/_header.scss */
 .header-wrapper .header .header-item {

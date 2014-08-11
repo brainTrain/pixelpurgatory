@@ -52,7 +52,7 @@
                     class="total header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'total' && 'active' || '' }}" 
                     ng-click="fb.sortStuffs('total')" 
                     ng-show="fb.isLoggedIn"
-                >total</span>
+                >all</span>
                 <span 
                     class="statuses header-nav header-item header-text cursor-pointer float-left {{ fb.graphType == 'statuses' && 'active' || '' }}" 
                     ng-click="fb.sortStuffs('statuses')" 
@@ -109,7 +109,13 @@
             </div>
         </div>
         <div class="content">
-            <div class="graph-container">
+            <div ng-hide="fb.graphArray.length" class="download-container">
+                <h3>{{ fb.statusesFinish }}</h3>
+                <h3>{{ fb.photosFinish }}</h3>
+                <h3>{{ fb.videosFinish }}</h3>
+                <h3>{{ fb.linksFinish }}</h3>
+            </div>
+            <div class="graph-container float-left">
                 <d3-bars graph-type="total" bar-height="20" bar-padding="5" graph-title="Visualize facebook likes" ng-show="fb.isLoggedIn"></d3-bars>
             </div>
         </div>

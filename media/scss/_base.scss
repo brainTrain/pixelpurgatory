@@ -46,9 +46,7 @@ h2 {
     z-index: map-get($z-index, content);
     margin-top: map-get($header, height);
 
-    .graph-wrapper {
-        position: relative;
-        min-height: 100px;
+    .graph-container {
         width: 100%;
     }
 }
