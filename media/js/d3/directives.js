@@ -28,7 +28,6 @@ angular.module('d3.directives', [])
                         // watches facebook controller's graphArray change for rendering graph
                         scope.$watch(function() {
                             // TODO: there's gotta be a better way than parent traversals to do this
-                            //return {'graphArray': scope.$parent.fb.graphArray, 'graphType': scope.$parent.fb.graphType};
                             return scope.$parent.fb.graphArray;
                         }, function(graphArray) {
                             scope.graphArray = graphArray;
@@ -48,8 +47,8 @@ angular.module('d3.directives', [])
                                 var width = d3.select(element[0])[0][0].offsetWidth - margin,
                                     height = scope.graphArray.length * (barHeight + barPadding),
                                     graphType = scope.graphType || 'total',
-                                    color = d3.scale.category20(),
-                                    xScale = d3.scale.linear()
+                                    xScale = d3.scale
+                                                .linear()
                                                 .domain([0, d3.max(graphArray, function(d) { 
                                                     return d.likes[graphType].count; 
                                                 })])
@@ -63,7 +62,7 @@ angular.module('d3.directives', [])
                                     .enter()
                                         .append('rect')
                                         .attr('height', barHeight)
-                                        .attr('width', 140)
+                                        .attr('width', 40)
                                         .attr('x', leftMargin)
                                         .attr('y', function(d, i) {
                                             return i * (barHeight + barPadding); 
