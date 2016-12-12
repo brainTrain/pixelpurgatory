@@ -5,14 +5,16 @@ export default {
     devDir: 'dev/',
     prodDir: 'public/',
     scripts: {
+        fileName: 'index.js',
         watch: 'app/js/*.js',
-        src: 'app/js/index.js',
+        src: 'app/js',
         devDest: 'dev/js',
         prodDest: 'public/js/'
     },
     styles: {
+        fileName: 'index.scss',
         watch: 'app/scss/**/*.scss',
-        src: 'app/scss/index.scss',
+        src: 'app/scss',
         devDest: 'dev/css',
         prodDest: 'public/css'
     },

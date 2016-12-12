@@ -11,16 +11,18 @@ import uglify from 'gulp-uglify';
 
 gulp.task('scripts', () => {
     // Grabs the app.js file
-    return browserify(config.scripts.src)
+    const { src, fileName, devDest, prodDest } = config.scripts;
+
+    return browserify(`${src}/${fileName}`)
         .transform(babelify, {presets: ['es2015', 'react']})
-        // bundles it and creates a file called main.js
+        // bundles it and creates a file named index.js
         .bundle()
-        .pipe(source('index.js'))
-        .pipe(gulp.dest(config.scripts.devDest))
+        .pipe(source(fileName))
+        .pipe(gulp.dest(devDest))
         .pipe(buffer())
         .pipe(uglify())
         //.pipe(rev())
         //.pipe(rev.manifest())
-        // saves it the public/js/ directory
-        .pipe(gulp.dest(config.scripts.prodDest));
+        // saves it the config prodDest directory
+        .pipe(gulp.dest(prodDest));
 });
