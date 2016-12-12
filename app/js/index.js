@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Buttons from './buttons';
+import PixelPurgatory from './pixel-purgatory';
 
 ReactDOM.render(
-    <Buttons />,
-    document.getElementById('buttons-container')
+    <PixelPurgatory />,
+    document.getElementById('pixel-purgatory')
 );
