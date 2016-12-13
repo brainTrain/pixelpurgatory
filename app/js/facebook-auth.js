@@ -63,7 +63,7 @@ class FacebookAuth extends React.Component {
         return (
             <div>
                 <h2>Facebook Auth</h2>
-                Connection Status: { connectionTextMap[connectionStatus] || 'Yikes! :\'(' }
+                Connection Status: { connectionTextMap[connectionStatus] || 'shit! :\'(' }
                 { this.props.children }
             </div>
         );
