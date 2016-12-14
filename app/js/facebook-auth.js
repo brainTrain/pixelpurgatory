@@ -7,7 +7,9 @@ class FacebookAuth extends React.Component {
 
         this.state = {
             username: '',
-            authToken: '',
+            userID: undefined,
+            accessToken: '',
+            expiresIn: 0,
             connectionStatus: 'loading',
             connectionTextMap: {
                 loading: 'Loading',
@@ -17,18 +19,21 @@ class FacebookAuth extends React.Component {
             },
             loginButtonTextMap: {
                 connected: 'Logout',
-                not_authorized: 'Login'
+                not_authorized: 'Authorize',
+                unknown: 'Login'
             },
             loginButtonActionMap: {
                 connected: () => {},
-                not_authorized: () => {}
+                not_authorized: () => {},
+                unknown: () => {}
             }
         };
 
         _.bindAll(this, [
             'facebookResponse',
             'initFacebook',
-            'facebookLogin'
+            'facebookLogin',
+            'handleFacebookLogin'
         ]);
     }
 
@@ -62,11 +67,13 @@ class FacebookAuth extends React.Component {
     }
 
     facebookResponse(response) {
+        console.log('response', response);
         this.setState({
             connectionStatus: response.status,
             loginButtonActionMap: {
                 connected: FB.logout,
-                not_authorized: FB.login
+                not_authorized: FB.login,
+                unknown: FB.login
             }
         });
     }
@@ -74,7 +81,17 @@ class FacebookAuth extends React.Component {
     facebookLogin() {
         const { connectionStatus, loginButtonActionMap } = this.state;
         const buttonAction = loginButtonActionMap[connectionStatus];
-        buttonAction && buttonAction();
+        buttonAction && buttonAction(this.handleFacebookLogin);
+    }
+
+    handleFacebookLogin(response) {
+        const { userID, expiresIn, accessToken } = response.authResponse;
+        this.setState({
+            connectionStatus: response.status,
+            userID,
+            expiresIn,
+            accessToken
+        });
     }
 
     renderLogin() {
@@ -95,6 +112,7 @@ class FacebookAuth extends React.Component {
     render() {
         const { connectionTextMap , connectionStatus } = this.state;
         const loginButton = this.renderLogin();
+        console.log(this.state);
 
         return (
             <div>
