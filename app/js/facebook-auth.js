@@ -85,7 +85,7 @@ class FacebookAuth extends React.Component {
     }
 
     handleFacebookLogin(response) {
-        const { userID, expiresIn, accessToken } = response.authResponse;
+        const { userID, expiresIn, accessToken } = response.authResponse || {};
         this.setState({
             connectionStatus: response.status,
             userID,
