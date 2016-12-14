@@ -10,23 +10,32 @@ class FacebookAuth extends React.Component {
             authToken: '',
             connectionStatus: 'loading',
             connectionTextMap: {
-                'loading': 'Loading',
-                'connected': 'Connected',
-                'not_authorized': 'Please Authorize This App',
-                'unknown': 'Please Log In to Facebook'
+                loading: 'Loading',
+                connected: 'Connected',
+                not_authorized: 'Please Authorize This App',
+                unknown: 'Please Log In to Facebook'
+            },
+            loginButtonTextMap: {
+                connected: 'Logout',
+                not_authorized: 'Login'
+            },
+            loginButtonActionMap: {
+                connected: () => {},
+                not_authorized: () => {}
             }
         };
 
         _.bindAll(this, [
             'facebookResponse',
-            'initFacebook'
+            'initFacebook',
+            'facebookLogin'
         ]);
     }
 
     initFacebook() {
-        // TODO: un-hack scoping issue
-        // and research some best practices for initializing sdks in react
-        const self = this;
+        // research some best practices for initializing sdks in react
+        const facebookResponse = this.facebookResponse;
+
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1773319846264688',
@@ -35,7 +44,7 @@ class FacebookAuth extends React.Component {
             });
             FB.AppEvents.logPageView();
             FB.getLoginStatus((response) => {
-                self.facebookResponse(response);
+                facebookResponse(response);
             });
         };
 
@@ -53,17 +62,45 @@ class FacebookAuth extends React.Component {
     }
 
     facebookResponse(response) {
-        console.log(response);
-        this.setState({connectionStatus: response.status});
+        this.setState({
+            connectionStatus: response.status,
+            loginButtonActionMap: {
+                connected: FB.logout,
+                not_authorized: FB.login
+            }
+        });
+    }
+
+    facebookLogin() {
+        const { connectionStatus, loginButtonActionMap } = this.state;
+        const buttonAction = loginButtonActionMap[connectionStatus];
+        buttonAction && buttonAction();
+    }
+
+    renderLogin() {
+        const { connectionStatus, loginButtonTextMap } = this.state;
+        const buttonText = loginButtonTextMap[connectionStatus];
+
+        if (buttonText) {
+            return (
+                <button
+                    onClick={ this.facebookLogin }
+                >{ buttonText }</button>
+            );
+        }
+
+        return null;
     }
 
     render() {
         const { connectionTextMap , connectionStatus } = this.state;
+        const loginButton = this.renderLogin();
 
         return (
             <div>
                 <h2>Facebook Auth</h2>
                 Connection Status: { connectionTextMap[connectionStatus] || 'shit! :\'(' }
+                { loginButton }
                 { this.props.children }
             </div>
         );
