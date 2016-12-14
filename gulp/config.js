@@ -6,7 +6,7 @@ export default {
     prodDir: 'public/',
     scripts: {
         fileName: 'index.js',
-        watch: 'app/js/*.js',
+        watch: 'app/js/**/*.js',
         src: 'app/js',
         devDest: 'dev/js',
         prodDest: 'public/js/'

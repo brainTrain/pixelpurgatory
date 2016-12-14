@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import AuthButton from './facebook/auth-button';
+import AuthButton from './auth-button';
 
 class FacebookAuth extends React.Component {
     constructor(props) {
@@ -22,15 +22,19 @@ class FacebookAuth extends React.Component {
         };
 
         _.bindAll(this, [
-            'facebookResponse',
+            'facebookLoaded',
             'initFacebook',
             'handleFacebookLogin'
         ]);
     }
 
+    componentDidMount() {
+        this.initFacebook();
+    }
+
     initFacebook() {
         // research some best practices for initializing sdks in react
-        const facebookResponse = this.facebookResponse;
+        const facebookLoaded = this.facebookLoaded;
 
         window.fbAsyncInit = function() {
             FB.init({
@@ -40,7 +44,7 @@ class FacebookAuth extends React.Component {
             });
             FB.AppEvents.logPageView();
             FB.getLoginStatus((response) => {
-                facebookResponse(response);
+                facebookLoaded(response);
             });
         };
 
@@ -53,24 +57,13 @@ class FacebookAuth extends React.Component {
         }(document, 'script', 'facebook-jssdk'));
     }
 
-    componentDidMount() {
-        this.initFacebook();
-    }
-
-    facebookResponse(response) {
-        console.log('response', response);
-        this.setState({
-            connectionStatus: response.status,
-            loginButtonActionMap: {
-                connected: FB.logout,
-                not_authorized: FB.login,
-                unknown: FB.login
-            }
-        });
+    facebookLoaded(response) {
+        this.setState({ connectionStatus: response.status });
     }
 
     handleFacebookLogin(response) {
         const { userID, expiresIn, accessToken } = response.authResponse || {};
+
         this.setState({
             connectionStatus: response.status,
             userID,
@@ -81,16 +74,18 @@ class FacebookAuth extends React.Component {
 
     render() {
         const { connectionTextMap , connectionStatus } = this.state;
-        console.log(this.state);
+        const isFacebookLoaded = typeof(FB) === 'object';
 
         return (
             <div>
                 <h2>Facebook Auth</h2>
                 Connection Status: { connectionTextMap[connectionStatus] || 'shit! :\'(' }
-                <AuthButton
-                    connectionStatus={ this.state.connectionStatus }
-                    handleFacebookLogin={ this.handleFacebookLogin }
-                />
+                { isFacebookLoaded && (
+                    <AuthButton
+                        connectionStatus={ this.state.connectionStatus }
+                        handleFacebookLogin={ this.handleFacebookLogin }
+                    />
+                ) }
                 { this.props.children }
             </div>
         );

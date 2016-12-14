@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Buttons from './buttons';
-import FacebookAuth from './facebook-auth';
+import FacebookAuth from './facebook/auth';
 
 class PixelPurgatory extends React.Component {
     render() {
