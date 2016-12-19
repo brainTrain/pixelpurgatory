@@ -9,7 +9,6 @@ class PixelPurgatory extends React.Component {
             <div>
                 <h1>Pixel Purgatory</h1>
                 <FacebookAuth>
-                    <h3>Buttons</h3>
                     <Buttons />
                 </FacebookAuth>
             </div>

@@ -63,6 +63,7 @@ class FacebookAuth extends React.Component {
 
     handleFacebookLogin(response) {
         const { userID, expiresIn, accessToken } = response.authResponse || {};
+        console.log(response);
 
         this.setState({
             connectionStatus: response.status,
@@ -72,9 +73,22 @@ class FacebookAuth extends React.Component {
         });
     }
 
+    renderChildren() {
+        const { children } = this.props;
+        const { userID, accessToken } = this.state;
+        const childrenProps = {
+            userID,
+            accessToken
+        };
+        return React.Children.map(children, (child) => {
+            return React.cloneElement(child, childrenProps);
+        });
+    }
+
     render() {
-        const { connectionTextMap , connectionStatus } = this.state;
+        const { connectionTextMap , connectionStatus, userID, accessToken } = this.state;
         const isFacebookLoaded = typeof(FB) === 'object';
+        const isConnected = connectionStatus === 'connected';
 
         return (
             <div>
@@ -86,7 +100,7 @@ class FacebookAuth extends React.Component {
                         handleFacebookLogin={ this.handleFacebookLogin }
                     />
                 ) }
-                { this.props.children }
+                { isConnected && this.renderChildren() }
             </div>
         );
     }

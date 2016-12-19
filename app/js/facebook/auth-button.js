@@ -41,8 +41,11 @@ class AuthButton extends React.Component {
 
     facebookLogin() {
         const { connectionStatus, loginButtonActionMap } = this.state;
+        const options = {
+            scope: 'user_posts'
+        };
         const buttonAction = loginButtonActionMap[connectionStatus];
-        buttonAction && buttonAction(this.props.handleFacebookLogin);
+        buttonAction && buttonAction(this.props.handleFacebookLogin, options);
     }
 
     render() {
