@@ -202,11 +202,12 @@ class Buttons extends React.Component {
 
     render() {
         const { profile, posts, likes, reactions, comments, sharedposts } = this.state;
-        const postsCount = Object.keys(posts).length;
-        const likesCount = Object.keys(posts).length;
-        const reactionsCount = Object.keys(posts).length;
-        const commentsCount = Object.keys(posts).length;
-        const sharedPostsCount = Object.keys(posts).length;
+        const { keys } = Object;
+        const postsCount = keys(posts).length;
+        const likesCount = keys(likes).length;
+        const reactionsCount = keys(reactions).length;
+        const commentsCount = keys(comments).length;
+        const sharedPostsCount = keys(sharedposts).length;
 
         return (
             <div className="button-container">
