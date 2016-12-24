@@ -18,30 +18,38 @@ class GetLikesButton extends React.Component {
                     'id',
                     'updated_time'
                 ].join(',')
-            }
+            },
+            fetchDone: false
         };
 
         _.bindAll(this, [
             'getData',
             'getPostData',
             'handleGetData',
-            'renderChart'
+            'renderChart',
+            'renderCount'
         ]);
     }
 
     getPostData() {
+        this.setState({ fetchDone: false });
         const { posts } = this.props;
         const postKeys = Object.keys(posts);
-        postKeys.map((postID) => {
-            this.getData(postID);
+        postKeys.map((postID, index) => {
+            const isLastFetch = index === postKeys.length - 1;
+            this.getData(postID, isLastFetch);
         });
     }
 
-    getData(postID) {
+    getData(postID, isLastFetch) {
         const { path, pathCallback, params } = this.state;
         const likesPath = `${postID}${path}`;
         FB.api(likesPath, 'get', params, (response) => {
             this.handleGetData(response, postID);
+            // racey logic (get it? haaaa) just don't feel like promising much yet (oohhhh)
+            if(isLastFetch) {
+                this.setState({ fetchDone: true });
+            }
         });
     }
 
@@ -64,9 +72,13 @@ class GetLikesButton extends React.Component {
     }
 
     renderChart() {
+        // early return if we are still fetching
+        if(!this.state.fetchDone) return;
+
         const { likes } = this.state;
+        const { keys }  = Object;
         const likesData = [];
-        const likesKeys = Object.keys(likes);
+        const likesKeys = keys(likes);
 
         likesKeys.map((likeKey) => {
             const likeGroup = likes[likeKey];
@@ -101,14 +113,34 @@ class GetLikesButton extends React.Component {
         );
     }
 
+    renderCount() {
+        // early return if we are still fetching
+        if(!this.state.fetchDone) return;
+
+        const { likes } = this.state;
+        const { keys }  = Object;
+        const likesKeys = keys(likes);
+        let likesCount = 0;
+
+        likesKeys.map((likeKey) => {
+            const likeGroup = likes[likeKey];
+            likesCount += likeGroup.length;
+        });
+
+        return `Number of Likes ${likesCount}`;
+    }
+
     render() {
         const chart = this.renderChart();
+        const count = this.renderCount();
+        console.log(this.state.fetchDone);
 
         return (
             <div>
                 <button
                     onClick={ this.getPostData }
                 >Get Likes</button>
+                { count }
                 { chart }
             </div>
         );

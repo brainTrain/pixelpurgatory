@@ -58,12 +58,12 @@ class GetPostsButton extends React.Component {
         this.setState({ posts: updatedData });
 
         // keep on goin!
-        /*
         if(paging && paging.next) {
             FB.api(paging.next, (response) => {
                 this.handleGetData(response);
             });
         }
+        /*
         */
     }
 
@@ -82,11 +82,15 @@ class GetPostsButton extends React.Component {
 
     render() {
         const { posts } = this.state;
+        const { keys } = Object;
         const hasPosts = !_.isEmpty(posts);
+        const postsCount = keys(posts).length;
+        const postsCountText = `Number of posts: ${postsCount}`;
 
         return (
             <div>
                 <button onClick={ this.getData }>Get Posts</button>
+                { postsCountText }
                 <br />
                 { hasPosts && this.renderChildren() }
             </div>
