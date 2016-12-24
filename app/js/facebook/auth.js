@@ -8,7 +8,6 @@ class FacebookAuth extends React.Component {
         super(props);
 
         this.state = {
-            username: '',
             userID: undefined,
             accessToken: '',
             expiresIn: 0,
