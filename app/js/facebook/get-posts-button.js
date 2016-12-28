@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import PostsSummary from '../stats/posts-summary';
+
 class GetPostsButton extends React.Component {
     constructor(props) {
         super(props);
@@ -84,13 +86,11 @@ class GetPostsButton extends React.Component {
         const { posts } = this.state;
         const { keys } = Object;
         const hasPosts = !_.isEmpty(posts);
-        const postsCount = keys(posts).length;
-        const postsCountText = `Number of posts: ${postsCount}`;
 
         return (
             <div>
                 <button onClick={ this.getData }>Get Posts</button>
-                { postsCountText }
+                <PostsSummary posts={ posts } />
                 <br />
                 { hasPosts && this.renderChildren() }
             </div>
