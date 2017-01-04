@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import LikesByPerson from '../charts/likes-by-person';
+import LikesOverTime from '../charts/likes-over-time';
 import LikesSummary from '../stats/likes-summary';
 
 class GetLikesButton extends React.Component {
@@ -18,7 +19,8 @@ class GetLikesButton extends React.Component {
                     'name',
                     'picture',
                     'id',
-                    'updated_time'
+                    'updated_time',
+                    'time_created'
                 ].join(',')
             },
             fetchDone: false
@@ -74,7 +76,7 @@ class GetLikesButton extends React.Component {
     }
 
     render() {
-        console.log(this.state.fetchDone);
+        const { posts } = this.props;
 
         return (
             <div>
@@ -84,6 +86,7 @@ class GetLikesButton extends React.Component {
                 <button onClick={ this.debug }>likes debugz</button>
                 { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
                 { this.state.fetchDone && (<LikesByPerson likes={ this.state.likes } />) }
+                { this.state.fetchDone && (<LikesOverTime likes={ this.state.likes } posts={ posts } />) }
             </div>
         );
     }
