@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-import { stringToObject } from '../format/date-time';
+import { stringToDate } from '../format/date-time';
 
 class LikesOverTime extends React.Component {
 
@@ -23,7 +23,8 @@ class LikesOverTime extends React.Component {
         };
 
         _.bindAll(this, [
-            'changeSort'
+            'changeSort',
+            'onDataClick'
         ]);
     }
 
@@ -69,7 +70,7 @@ class LikesOverTime extends React.Component {
         postKeys.map((postKey) => {
             const post = posts[postKey];
             const { updated_time, likeIDs } = post;
-            const dateObject = stringToObject(updated_time);
+            const dateObject = stringToDate(updated_time);
             const count = likeIDs ? likeIDs.length : 0;
 
             const likeGraphObject = {
@@ -85,9 +86,17 @@ class LikesOverTime extends React.Component {
         return likesData;
     }
 
+    onDataClick({ postID }) {
+        const { posts } = this.props;
+        const post = posts[postID];
+        const { permalink_url } = post;
+
+        window.open(permalink_url, '_blank');
+    }
+
     render() {
         const { sortType, sortMap, buttonMap, likesData } = this.state;
-        const yAxisLabelHeight = 25;
+        const yAxisLabelHeight = 15;
         const chartHeight = likesData.length * yAxisLabelHeight;
         const marginFormat = {
                     top: 5,
@@ -124,7 +133,11 @@ class LikesOverTime extends React.Component {
                         <CartesianGrid strokeDasharray="3 3"/>
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="count" fill="#8884d8" />
+                        <Bar
+                            onClick={ this.onDataClick }
+                            dataKey="count"
+                            fill="#8884d8"
+                        />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

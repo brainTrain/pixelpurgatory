@@ -60,12 +60,12 @@ class GetPostsButton extends React.Component {
         this.setState({ posts: updatedData });
 
         // keep on goin!
-        /*
         if(paging && paging.next) {
             FB.api(paging.next, (response) => {
                 this.handleGetData(response);
             });
         }
+        /*
         */
     }
 
