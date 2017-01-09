@@ -44,11 +44,9 @@ class Profile extends React.Component {
         const name = `yo ${ first_name } ${ last_name }! `;
 
         return (
-            <div>
-                <button
-                    onClick={ this.getData }
-                >Get Profile</button>
-                { !_.isEmpty(profile) && name }
+            <div className="profile-container">
+                <h3 className="profile-title">Profile</h3>
+                <h4 className="profile-name">{ !_.isEmpty(profile) && name }</h4>
             </div>
         );
     }

@@ -13,8 +13,8 @@ import Comments from './facebook/comments';
 class PixelPurgatory extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Pixel Purgatory</h1>
+            <div className="app-container">
+                <h1 className="app-title">Pixel Purgatory</h1>
                 <FacebookAuth>
                     <Profile />
                     <Posts>
