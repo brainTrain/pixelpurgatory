@@ -108,8 +108,10 @@ class LikesOverTime extends React.Component {
         const sortedData = _.sortBy(likesData, [sortType]).reverse();
 
         return (
-            <div>
-                <h3>Total Likes Over Time | Sorted By: { sortMap[sortType] }</h3>
+            <div className="chart-container">
+                <h3 className="chart-title">
+                    Total Likes Over Time | Sorted By: { sortMap[sortType] }
+                </h3>
                 <button onClick={ this.changeSort }>Sort by { buttonMap[sortType] }</button>
                 <ResponsiveContainer height={ 30 } width="100%">
                     <BarChart

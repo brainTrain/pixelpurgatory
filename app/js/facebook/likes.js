@@ -5,7 +5,7 @@ import LikesByPerson from '../charts/likes-by-person';
 import LikesOverTime from '../charts/likes-over-time';
 import LikesSummary from '../stats/likes-summary';
 
-class GetLikesButton extends React.Component {
+class Likes extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,8 +29,7 @@ class GetLikesButton extends React.Component {
         _.bindAll(this, [
             'getData',
             'getPostData',
-            'handleGetData',
-            'debug'
+            'handleGetData'
         ]);
     }
 
@@ -71,25 +70,22 @@ class GetLikesButton extends React.Component {
         this.setState({ likes: likeData });
     }
 
-    debug() {
-        debugger;
-    }
-
     render() {
         const { posts } = this.props;
 
         return (
-            <div>
+            <div className="likes-container">
                 <button
                     onClick={ this.getPostData }
                 >Get Likes</button>
-                <button onClick={ this.debug }>likes debugz</button>
-                { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
-                { this.state.fetchDone && (<LikesByPerson likes={ this.state.likes } />) }
-                { this.state.fetchDone && (<LikesOverTime likes={ this.state.likes } posts={ posts } />) }
+                <div className="likes-data-wrapper">
+                    { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
+                    { this.state.fetchDone && (<LikesByPerson likes={ this.state.likes } />) }
+                    { this.state.fetchDone && (<LikesOverTime likes={ this.state.likes } posts={ posts } />) }
+                </div>
             </div>
         );
     }
 };
 
-export default GetLikesButton;
+export default Likes;

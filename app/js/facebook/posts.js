@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import PostsSummary from '../stats/posts-summary';
 
-class GetPostsButton extends React.Component {
+class Posts extends React.Component {
     constructor(props) {
         super(props);
 
@@ -60,12 +60,12 @@ class GetPostsButton extends React.Component {
         this.setState({ posts: updatedData });
 
         // keep on goin!
+        /*
         if(paging && paging.next) {
             FB.api(paging.next, (response) => {
                 this.handleGetData(response);
             });
         }
-        /*
         */
     }
 
@@ -98,4 +98,4 @@ class GetPostsButton extends React.Component {
     }
 };
 
-export default GetPostsButton;
+export default Posts;

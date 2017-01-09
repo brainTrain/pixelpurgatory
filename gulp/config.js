@@ -13,7 +13,10 @@ export default {
     },
     styles: {
         fileName: 'index.scss',
-        watch: 'app/scss/**/*.scss',
+        watch: [
+            'app/scss/**/*.scss',
+            'app/js/**/*.scss'
+        ],
         src: 'app/scss',
         devDest: 'dev/css',
         prodDest: 'public/css'

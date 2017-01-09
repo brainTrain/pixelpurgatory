@@ -6,7 +6,7 @@ import runSequence from 'run-sequence';
 
 gulp.task('watch', () => {
     let buildSources = [
-        config.styles.watch,
+        ...config.styles.watch,
         config.scripts.watch,
         config.views.src,
         config.images.src,

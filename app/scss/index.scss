@@ -1,7 +1,11 @@
 // plugins
-@import "node_modules/breakpoint-sass/stylesheets/breakpoint";
+@import 'node_modules/breakpoint-sass/stylesheets/breakpoint';
 
 @import 'reset';
 @import 'utils';
+
+@import '../js/facebook/likes.scss';
+
+@import '../js/charts/chart.scss';
 
 // add app specific stuffs here

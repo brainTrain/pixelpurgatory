@@ -29,8 +29,8 @@ class LikesByPerson extends React.Component {
         });
 
         return (
-            <div>
-                <h3>Total Likes By Person</h3>
+            <div className="chart-container">
+                <h3 className="chart-title">Total Likes By Person</h3>
                 <ResponsiveContainer height={ 30 } width="100%">
                     <BarChart
                          data={ _.sortBy(likesData, ['count']).reverse() }

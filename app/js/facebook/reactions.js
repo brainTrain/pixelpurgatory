@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-class GetReactionsButton extends React.Component {
+class Reactions extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,4 +36,4 @@ class GetReactionsButton extends React.Component {
     }
 };
 
-export default GetReactionsButton;
+export default Reactions;

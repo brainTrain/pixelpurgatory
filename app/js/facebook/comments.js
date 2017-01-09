@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 
-class GetSharesButton extends React.Component {
+class Comments extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            shares: {},
-            path: '/sharedposts',
+            comments: {},
+            path: '/comments',
             params: {
                 limit: 100,
                 fields: [
@@ -42,9 +42,9 @@ class GetSharesButton extends React.Component {
         return (
             <button
                 onClick={ this.getData }
-            >Get Shares</button>
+            >Get Comments</button>
         );
     }
 };
 
-export default GetSharesButton;
+export default Comments;

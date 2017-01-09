@@ -2,13 +2,13 @@ import React from 'react';
 
 import FacebookAuth from './facebook/auth';
 
-import GetProfileButton from './facebook/get-profile-button';
-import GetPostsButton from './facebook/get-posts-button';
+import Profile from './facebook/profile';
+import Posts from './facebook/posts';
 
-import GetReactionsButton from './facebook/get-reactions-button';
-import GetLikesButton from './facebook/get-likes-button';
-import GetSharesButton from './facebook/get-shares-button';
-import GetCommentsButton from './facebook/get-comments-button';
+import Reactions from './facebook/reactions';
+import Likes from './facebook/likes';
+import Shares from './facebook/shares';
+import Comments from './facebook/comments';
 
 class PixelPurgatory extends React.Component {
     render() {
@@ -16,13 +16,13 @@ class PixelPurgatory extends React.Component {
             <div>
                 <h1>Pixel Purgatory</h1>
                 <FacebookAuth>
-                    <GetProfileButton />
-                    <GetPostsButton>
-                        <GetLikesButton />
-                        <GetReactionsButton />
-                        <GetSharesButton />
-                        <GetCommentsButton />
-                    </GetPostsButton>
+                    <Profile />
+                    <Posts>
+                        <Likes />
+                        <Reactions />
+                        <Shares />
+                        <Comments />
+                    </Posts>
                 </FacebookAuth>
             </div>
         );

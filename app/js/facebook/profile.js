@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-class GetProfileButton extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,6 +20,10 @@ class GetProfileButton extends React.Component {
             'getData',
             'handleGetData'
         ]);
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     getData() {
@@ -50,4 +54,4 @@ class GetProfileButton extends React.Component {
     }
 };
 
-export default GetProfileButton;
+export default Profile;
