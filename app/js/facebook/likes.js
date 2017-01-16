@@ -78,8 +78,8 @@ class Likes extends React.Component {
                 <button
                     onClick={ this.getPostData }
                 >Get Likes</button>
+                { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
                 <div className="likes-data-wrapper">
-                    { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
                     { this.state.fetchDone && (<LikesByPerson likes={ this.state.likes } />) }
                     { this.state.fetchDone && (<LikesOverTime likes={ this.state.likes } posts={ posts } />) }
                 </div>

@@ -1,9 +1,23 @@
 .chart-container {
-    padding: 100px;
+    padding-right: 10px;
+    width: 50%;
+    height: 400px;
+
+    .chart-box {
+        border: 1px solid;
+    }
+    .chart-header {
+        border-bottom: 1px solid;
+    }
 
     .chart-title {
-        font-size: 24px;
-        font-weight: 500;
-        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .chart-body {
+        height: 300px;
+        overflow: auto;
     }
 }
