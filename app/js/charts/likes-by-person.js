@@ -2,12 +2,66 @@ import React from 'react';
 import _ from 'lodash';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
+
 class LikesByPerson extends React.Component {
 
-    render() {
-        const { likes } = this.props;
+    constructor(...props) {
+        super(...props);
+
+        this.state = {
+            filterQuery: '',
+            likesData: []
+        };
+
+        _.bindAll(this, [
+            'filterData',
+            'formatData',
+            'setFilterData'
+        ]);
+
+        // lovingly lifted from http://jsfiddle.net/seanodotcom/rerd3b87/
+        // we need to de bounce, but can't debounce the handler directly
+        // since event.persist() doesn't appear to keep the event around
+        // so we can't access data from it async, instead we need to debounce
+        // a function that sets the state individually from the event
+        this.setFilterQuery = _.debounce(this.setFilterQuery, 1000);
+    }
+
+    componentDidMount() {
+        const likesData = this.formatData();
+        this.setState({ likesData });
+    }
+
+    filterData(event) {
+        this.setFilterQuery(event.target.value);
+    }
+
+    setFilterQuery(filterQuery) {
+        this.setState({ filterQuery });
+    }
+
+    formatData() {
         const { keys }  = Object;
+        const { likes } = this.props;
+        const likesKeys = keys(likes);
+
         const likesData = [];
+        likesKeys.map((likeKey) => {
+            const likeGroup = likes[likeKey];
+            const likeGraphObject = {
+                name: likeGroup[0].name,
+                count: likeGroup.length
+            };
+            likesData.push(likeGraphObject);
+        });
+
+        return likesData;
+    }
+
+    render() {
+        const { keys }  = Object;
+        const { likesData, filterQuery } = this.state;
+        const { likes } = this.props;
         const likesKeys = keys(likes);
         const nameCount = likesKeys.length;
         const yAxisLabelHeight = 25;
@@ -19,25 +73,22 @@ class LikesByPerson extends React.Component {
                     bottom: 5
                 };
 
-        likesKeys.map((likeKey) => {
-            const likeGroup = likes[likeKey];
-            const likeGraphObject = {
-                name: likeGroup[0].name,
-                count: likeGroup.length
-            };
-            likesData.push(likeGraphObject);
-        });
+
+        const graphData = _.sortBy(likesData, ['count']).reverse();
 
         return (
             <div className="chart-container">
-                <h3 className="chart-title">Total Likes By Person</h3>
+                <h3 className="chart-title">Total Likes By Person | filtered by: { filterQuery }</h3>
                 <div className="chart-box">
                     <div className="chart-header">
-                        <input className="chart-filter" />
+                        <input
+                            onChange={ this.filterData }
+                            className="chart-filter"
+                        />
                     </div>
                     <ResponsiveContainer height={ 30 } width="100%">
                         <BarChart
-                             data={ _.sortBy(likesData, ['count']).reverse() }
+                             data={ graphData }
                              layout="vertical"
                              margin={ marginFormat }
                         >
@@ -49,7 +100,7 @@ class LikesByPerson extends React.Component {
                     <div className="chart-body">
                         <ResponsiveContainer height={ chartHeight } width="100%">
                             <BarChart
-                                 data={ _.sortBy(likesData, ['count']).reverse() }
+                                 data={ graphData }
                                  layout="vertical"
                                  margin={ marginFormat }
                             >

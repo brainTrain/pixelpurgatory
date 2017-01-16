@@ -6,8 +6,8 @@ import { stringToDate } from '../date-time/format';
 
 class LikesOverTime extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor(...props) {
+        super(...props);
 
         this.state = {
             sortType: 'timeInt',
@@ -45,10 +45,10 @@ class LikesOverTime extends React.Component {
     formatData() {
         const { likes, posts } = this.props;
         const { keys }  = Object;
-        const likesData = [];
         const likesKeys = keys(likes);
         const postKeys = keys(posts);
 
+        const likesData = [];
         likesKeys.map((likeKey) => {
             const likeGroup = likes[likeKey];
             const name = likeGroup[0].name;
@@ -105,7 +105,7 @@ class LikesOverTime extends React.Component {
                     bottom: 5
                 };
 
-        const sortedData = _.sortBy(likesData, [sortType]).reverse();
+        const graphData = _.sortBy(likesData, [sortType]).reverse();
 
         return (
             <div className="chart-container">
@@ -114,12 +114,11 @@ class LikesOverTime extends React.Component {
                 </h3>
                 <div className="chart-box">
                     <div className="chart-header">
-                        <input className="chart-filter" />
                         <button onClick={ this.changeSort }>Sort by { buttonMap[sortType] }</button>
                     </div>
                     <ResponsiveContainer height={ 30 } width="100%">
                         <BarChart
-                             data={ sortedData }
+                             data={ graphData }
                              layout="vertical"
                              margin={ marginFormat }
                         >
@@ -131,7 +130,7 @@ class LikesOverTime extends React.Component {
                     <div className="chart-body">
                         <ResponsiveContainer height={ chartHeight } width="100%">
                             <BarChart
-                                 data={ sortedData }
+                                 data={ graphData }
                                  layout="vertical"
                                  margin={ marginFormat }
                             >
