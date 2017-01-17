@@ -3,6 +3,7 @@
 import gulp from 'gulp';
 import config from '../config';
 import revReplace from 'gulp-rev-replace';
+import template from 'gulp-template';
 import buffer from 'vinyl-buffer';
 import cdnizer from 'gulp-cdnizer';
 
@@ -18,13 +19,16 @@ gulp.task('views', () => {
 
     // TODO: figure out a DRY way to do this
     return gulp.src(config.views.src)
+        .pipe(template({ facebookID: config.facebook.dev.id }))
         .pipe(cdnizer({
             files: config.cdn.files,
             defaultCDNBase: config.cdn.devBaseUrl
         }))
         .pipe(gulp.dest(config.views.devDest))
+
         .pipe(buffer())
         .pipe(gulp.src(config.views.src))
+        .pipe(template({ facebookID: config.facebook.prod.id }))
         //.pipe(revReplace({manifest: jsManifest}))
         //.pipe(revReplace({manifest: cssManifest}))
         .pipe(cdnizer({

@@ -67,6 +67,14 @@ export default {
             '/images/*.*'
         ]
     },
+    facebook: {
+        dev: {
+            id: '1773319846264688'
+        },
+        prod: {
+            id: '1788213181442021'
+        }
+    },
     manifest: {
         jsProdDest : 'public/js/rev-manifest.json',
         cssProdDest : 'public/css/rev-manifest.json'

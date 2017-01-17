@@ -37,9 +37,9 @@ class FacebookAuth extends React.Component {
 
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1773319846264688',
-                xfbml      : true,
-                version    : 'v2.8'
+                appId: facebookID,
+                xfbml: true,
+                version: 'v2.8'
             });
             FB.AppEvents.logPageView();
             FB.getLoginStatus((response) => {
