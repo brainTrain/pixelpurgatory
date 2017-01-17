@@ -123,7 +123,7 @@ class LikesOverTime extends React.Component {
                              margin={ marginFormat }
                         >
                             <XAxis dataKey="count" type="number" orientation="top" />
-                            <YAxis width={ 200 } />
+                            <YAxis width={ 200 } type="category" />
                             <CartesianGrid strokeDasharray="3 3"/>
                         </BarChart>
                     </ResponsiveContainer>

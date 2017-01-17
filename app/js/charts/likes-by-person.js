@@ -101,8 +101,8 @@ class LikesByPerson extends React.Component {
                              margin={ marginFormat }
                         >
                             <XAxis dataKey="count" type="number" orientation="top" />
-                            <YAxis width={ 200 } />
-                            <CartesianGrid strokeDasharray="3 3"/>
+                            <YAxis width={ 200 } type="category" />
+                            <CartesianGrid strokeDasharray="3 3" />
                         </BarChart>
                     </ResponsiveContainer>
                     <div className="chart-body">
@@ -114,8 +114,8 @@ class LikesByPerson extends React.Component {
                             >
                                 <XAxis style={ { display: 'none' } } dataKey="count" type="number" />
                                 <YAxis dataKey="name" type="category" width={ 200 } />
-                                <CartesianGrid strokeDasharray="3 3"/>
-                                <Tooltip/>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <Tooltip />
                                 <Bar dataKey="count" fill="#8884d8" />
                             </BarChart>
                         </ResponsiveContainer>
