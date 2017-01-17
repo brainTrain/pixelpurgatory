@@ -16,7 +16,8 @@ class LikesByPerson extends React.Component {
         _.bindAll(this, [
             'filterData',
             'formatData',
-            'setFilterData'
+            'setFilterQuery',
+            'filterByName'
         ]);
 
         // lovingly lifted from http://jsfiddle.net/seanodotcom/rerd3b87/
@@ -24,7 +25,7 @@ class LikesByPerson extends React.Component {
         // since event.persist() doesn't appear to keep the event around
         // so we can't access data from it async, instead we need to debounce
         // a function that sets the state individually from the event
-        this.setFilterQuery = _.debounce(this.setFilterQuery, 1000);
+        this.setFilterQuery = _.debounce(this.setFilterQuery, 400);
     }
 
     componentDidMount() {
@@ -37,6 +38,7 @@ class LikesByPerson extends React.Component {
     }
 
     setFilterQuery(filterQuery) {
+        const { likesData } = this.state;
         this.setState({ filterQuery });
     }
 
@@ -58,23 +60,29 @@ class LikesByPerson extends React.Component {
         return likesData;
     }
 
+    filterByName(data) {
+        let { filterQuery } = this.state;
+        filterQuery = filterQuery.toLowerCase();
+        const { name = '' } = data;
+        return name.toLowerCase().indexOf(filterQuery) > -1;
+    }
+
     render() {
-        const { keys }  = Object;
         const { likesData, filterQuery } = this.state;
-        const { likes } = this.props;
-        const likesKeys = keys(likes);
-        const nameCount = likesKeys.length;
+        let graphData = _.filter(likesData, this.filterByName);
+        graphData = _.sortBy(graphData, ['count']).reverse();
+
+        const nameCount = graphData.length;
         const yAxisLabelHeight = 25;
-        const chartHeight = nameCount * yAxisLabelHeight;
+        const minYAxisHeight = 100;
+        let chartHeight = nameCount * yAxisLabelHeight;
+        if(chartHeight <minYAxisHeight) chartHeight = minYAxisHeight;
         const marginFormat = {
                     top: 5,
                     right: 30,
                     left: 20,
                     bottom: 5
                 };
-
-
-        const graphData = _.sortBy(likesData, ['count']).reverse();
 
         return (
             <div className="chart-container">
