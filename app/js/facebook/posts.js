@@ -9,6 +9,7 @@ class Posts extends React.Component {
 
         this.state = {
             posts: {},
+            getAllPosts: false,
             path: '/posts',
             params: {
                 limit: 100,
@@ -35,11 +36,13 @@ class Posts extends React.Component {
         _.bindAll(this, [
             'getData',
             'handleGetData',
-            'renderChildren'
+            'renderChildren',
+            'onGetAllChange'
         ]);
     }
 
     getData() {
+        this.setState({ posts: {} });
         const { path, pathCallback, params } = this.state;
         const { userID } = this.props;
         const postsPath = `/${userID}${path}`;
@@ -49,24 +52,26 @@ class Posts extends React.Component {
     handleGetData(response) {
         console.log(`repsoonse: posts`, response);
         const { data, paging } = response;
-        const currentData = this.state.posts;
+        const { posts, getAllPosts } = this.state;
         let newRecord = {};
         data && data.map((item) => {
             const { id } = item;
             newRecord[id] = item;
         });
 
-        const updatedData = Object.assign(currentData, newRecord);
+        const updatedData = Object.assign(posts, newRecord);
         this.setState({ posts: updatedData });
 
         // keep on goin!
-        /*
-        if(paging && paging.next) {
+        if(getAllPosts && paging && paging.next) {
             FB.api(paging.next, (response) => {
                 this.handleGetData(response);
             });
         }
-        */
+    }
+
+    onGetAllChange(event) {
+        this.setState({ getAllPosts: event.target.checked })
     }
 
     renderChildren() {
@@ -83,13 +88,17 @@ class Posts extends React.Component {
     }
 
     render() {
-        const { posts } = this.state;
+        const { posts, getAllPosts } = this.state;
         const { keys } = Object;
         const hasPosts = !_.isEmpty(posts);
 
         return (
             <div>
                 <button onClick={ this.getData }>Get Posts</button>
+                <label>
+                    Get all posts 
+                    <input type="checkbox" checked={ getAllPosts } onChange={ this.onGetAllChange } />
+                </label>
                 <PostsSummary posts={ posts } />
                 <br />
                 { hasPosts && this.renderChildren() }

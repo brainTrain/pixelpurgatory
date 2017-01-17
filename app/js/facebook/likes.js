@@ -34,7 +34,7 @@ class Likes extends React.Component {
     }
 
     getPostData() {
-        this.setState({ fetchDone: false });
+        this.setState({ fetchDone: false, likes: [] });
         const { posts } = this.props;
         const postKeys = Object.keys(posts);
         const postLikesPromises = postKeys.map((postID, index) => this.getData(postID));
@@ -75,9 +75,7 @@ class Likes extends React.Component {
 
         return (
             <div className="likes-container">
-                <button
-                    onClick={ this.getPostData }
-                >Get Likes</button>
+                <button onClick={ this.getPostData } >Get Likes</button>
                 { this.state.fetchDone && (<LikesSummary likes={ this.state.likes } />) }
                 <div className="likes-data-wrapper">
                     { this.state.fetchDone && (<LikesByPerson likes={ this.state.likes } />) }
