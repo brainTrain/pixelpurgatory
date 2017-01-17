@@ -1,6 +1,9 @@
 .likes-container {
     .likes-data-wrapper {
-        display: flex;
         margin-top: 10px;
+
+        @include breakpoint($breakpoint-desktop) {
+            display: flex;
+        }
     }
 }

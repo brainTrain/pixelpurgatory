@@ -1,5 +1,9 @@
 .app-container {
-    padding: 100px;
+    padding: 25px;
+
+    @include breakpoint($breakpoint-desktop) {
+        padding: 100px;
+    }
 
     .app-title {
         font-size: 30px;
